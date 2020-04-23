@@ -1,0 +1,305 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="No_">
+          <DataField>No_</DataField>
+        </Field>
+        <Field Name="Name">
+          <DataField>Name</DataField>
+        </Field>
+        <Field Name="Address">
+          <DataField>Address</DataField>
+        </Field>
+        <Field Name="E_Mail">
+          <DataField>E_Mail</DataField>
+        </Field>
+        <Field Name="Phone_No_">
+          <DataField>Phone_No_</DataField>
+        </Field>
+        <Field Name="Credit_Limit__LCY_">
+          <DataField>Credit_Limit__LCY_</DataField>
+        </Field>
+        <Field Name="Credit_Limit__LCY_Format">
+          <DataField>Credit_Limit__LCY_Format</DataField>
+        </Field>
+        <Field Name="Payment_Terms_Code">
+          <DataField>Payment_Terms_Code</DataField>
+        </Field>
+        <Field Name="Fax_No_">
+          <DataField>Fax_No_</DataField>
+        </Field>
+        <Field Name="Partner_Type">
+          <DataField>Partner_Type</DataField>
+        </Field>
+        <Field Name="Company_Picture">
+          <DataField>Company_Picture</DataField>
+        </Field>
+        <Field Name="Company_Name">
+          <DataField>Company_Name</DataField>
+        </Field>
+        <Field Name="Company_Add1">
+          <DataField>Company_Add1</DataField>
+        </Field>
+        <Field Name="Company_Add2">
+          <DataField>Company_Add2</DataField>
+        </Field>
+        <Field Name="Company_City">
+          <DataField>Company_City</DataField>
+        </Field>
+        <Field Name="Company_Country">
+          <DataField>Company_Country</DataField>
+        </Field>
+        <Field Name="Company_Phone">
+          <DataField>Company_Phone</DataField>
+        </Field>
+        <Field Name="CustomerNoLbl">
+          <DataField>CustomerNoLbl</DataField>
+        </Field>
+        <Field Name="CustomerNameLbl">
+          <DataField>CustomerNameLbl</DataField>
+        </Field>
+        <Field Name="CreditApplicationFormLbl">
+          <DataField>CreditApplicationFormLbl</DataField>
+        </Field>
+        <Field Name="NameofCompany">
+          <DataField>NameofCompany</DataField>
+        </Field>
+        <Field Name="TypeOfComapnyLbl">
+          <DataField>TypeOfComapnyLbl</DataField>
+        </Field>
+        <Field Name="PostalAddressLbl">
+          <DataField>PostalAddressLbl</DataField>
+        </Field>
+        <Field Name="OfficeLocationLbl">
+          <DataField>OfficeLocationLbl</DataField>
+        </Field>
+        <Field Name="EmailLbl">
+          <DataField>EmailLbl</DataField>
+        </Field>
+        <Field Name="WebLbl">
+          <DataField>WebLbl</DataField>
+        </Field>
+        <Field Name="YearEstablishedLbl">
+          <DataField>YearEstablishedLbl</DataField>
+        </Field>
+        <Field Name="OwenerPartnersLbl">
+          <DataField>OwenerPartnersLbl</DataField>
+        </Field>
+        <Field Name="LocalSponsorLbl">
+          <DataField>LocalSponsorLbl</DataField>
+        </Field>
+        <Field Name="AssociateCompaniesLbl">
+          <DataField>AssociateCompaniesLbl</DataField>
+        </Field>
+        <Field Name="CompaniesGivingLbl">
+          <DataField>CompaniesGivingLbl</DataField>
+        </Field>
+        <Field Name="IndividualLbl">
+          <DataField>IndividualLbl</DataField>
+        </Field>
+        <Field Name="PartnershipLbl">
+          <DataField>PartnershipLbl</DataField>
+        </Field>
+        <Field Name="LimitedLiabilityCompanyLbl">
+          <DataField>LimitedLiabilityCompanyLbl</DataField>
+        </Field>
+        <Field Name="LocalLbl">
+          <DataField>LocalLbl</DataField>
+        </Field>
+        <Field Name="FZEFZCLbl">
+          <DataField>FZEFZCLbl</DataField>
+        </Field>
+        <Field Name="ForeginLbl">
+          <DataField>ForeginLbl</DataField>
+        </Field>
+        <Field Name="JointVentureLbl">
+          <DataField>JointVentureLbl</DataField>
+        </Field>
+        <Field Name="RegistrationLbl">
+          <DataField>RegistrationLbl</DataField>
+        </Field>
+        <Field Name="SalesTurnoverLbl">
+          <DataField>SalesTurnoverLbl</DataField>
+        </Field>
+        <Field Name="NumberofEmployeesLbl">
+          <DataField>NumberofEmployeesLbl</DataField>
+        </Field>
+        <Field Name="DesignationLbl">
+          <DataField>DesignationLbl</DataField>
+        </Field>
+        <Field Name="AddressLbl">
+          <DataField>AddressLbl</DataField>
+        </Field>
+        <Field Name="CreditLimitLbl">
+          <DataField>CreditLimitLbl</DataField>
+        </Field>
+        <Field Name="TelephoneNoLbl">
+          <DataField>TelephoneNoLbl</DataField>
+        </Field>
+        <Field Name="FaxNumberLbl">
+          <DataField>FaxNumberLbl</DataField>
+        </Field>
+        <Field Name="NationalityLbl">
+          <DataField>NationalityLbl</DataField>
+        </Field>
+        <Field Name="PaymentTermsLbl">
+          <DataField>PaymentTermsLbl</DataField>
+        </Field>
+        <Field Name="CreditRequiredLbl">
+          <DataField>CreditRequiredLbl</DataField>
+        </Field>
+        <Field Name="CreditvalueLbl">
+          <DataField>CreditvalueLbl</DataField>
+        </Field>
+        <Field Name="CreditPeriodLbl">
+          <DataField>CreditPeriodLbl</DataField>
+        </Field>
+        <Field Name="CreditModeLbl">
+          <DataField>CreditModeLbl</DataField>
+        </Field>
+        <Field Name="BankDetailsLbl">
+          <DataField>BankDetailsLbl</DataField>
+        </Field>
+        <Field Name="DepartmentLbl">
+          <DataField>DepartmentLbl</DataField>
+        </Field>
+        <Field Name="PurchaseLbl">
+          <DataField>PurchaseLbl</DataField>
+        </Field>
+        <Field Name="AccountsPayableLbl">
+          <DataField>AccountsPayableLbl</DataField>
+        </Field>
+        <Field Name="MaterialControllerLbl">
+          <DataField>MaterialControllerLbl</DataField>
+        </Field>
+        <Field Name="PersonAuthorisedLbl1">
+          <DataField>PersonAuthorisedLbl1</DataField>
+        </Field>
+        <Field Name="PersonAuthorisedLb2">
+          <DataField>PersonAuthorisedLb2</DataField>
+        </Field>
+        <Field Name="PersonAuthorizedBankLbl2">
+          <DataField>PersonAuthorizedBankLbl2</DataField>
+        </Field>
+        <Field Name="PersonAuthorizedBankLbl1">
+          <DataField>PersonAuthorizedBankLbl1</DataField>
+        </Field>
+        <Field Name="NameLbl">
+          <DataField>NameLbl</DataField>
+        </Field>
+        <Field Name="ContactPersonLbl">
+          <DataField>ContactPersonLbl</DataField>
+        </Field>
+        <Field Name="BranchLbl">
+          <DataField>BranchLbl</DataField>
+        </Field>
+        <Field Name="AccountNumberLbl">
+          <DataField>AccountNumberLbl</DataField>
+        </Field>
+        <Field Name="TelephoneExtensionLbl">
+          <DataField>TelephoneExtensionLbl</DataField>
+        </Field>
+        <Field Name="SignatureLbl">
+          <DataField>SignatureLbl</DataField>
+        </Field>
+        <Field Name="SinglyLbl">
+          <DataField>SinglyLbl</DataField>
+        </Field>
+        <Field Name="DeclerationLbl">
+          <DataField>DeclerationLbl</DataField>
+        </Field>
+        <Field Name="PrintNameLbl">
+          <DataField>PrintNameLbl</DataField>
+        </Field>
+        <Field Name="SignLbl">
+          <DataField>SignLbl</DataField>
+        </Field>
+        <Field Name="DateLbl">
+          <DataField>DateLbl</DataField>
+        </Field>
+        <Field Name="KindlyLbl">
+          <DataField>KindlyLbl</DataField>
+        </Field>
+        <Field Name="TradeLbl">
+          <DataField>TradeLbl</DataField>
+        </Field>
+        <Field Name="ChamberLbl">
+          <DataField>ChamberLbl</DataField>
+        </Field>
+        <Field Name="PartnersCertificateLbl">
+          <DataField>PartnersCertificateLbl</DataField>
+        </Field>
+        <Field Name="OwnersPassportLbl">
+          <DataField>OwnersPassportLbl</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

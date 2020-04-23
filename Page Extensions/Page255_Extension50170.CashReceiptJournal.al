@@ -1,0 +1,29 @@
+pageextension 50170 "Ext Cash Receipt Journal" extends "Cash Receipt Journal"
+{
+    layout
+    {
+        addafter("Bal. Account Type")
+        {
+            field("Cash/Cheque Number"; "Cash/Cheque Number")
+            {
+                ApplicationArea = All;
+            }
+            field("Cheque Date"; "Cheque Date")
+            {
+                ApplicationArea = All;
+            }
+            field("Bank Name"; "Bank Name")
+            {
+                ApplicationArea = All;
+            }
+        }
+    }
+
+    actions
+    {
+        // Add changes to page actions here
+    }
+
+    var
+        myInt: Integer;
+}
