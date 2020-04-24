@@ -16,6 +16,7 @@ report 50120 "Receipt Voucher"
             column(Entry_No_; "Entry No.")
             {
             }
+            column(ReasonCodeNameG; ReasonCodeNameG) { }
             column(MainCash; MainCash)
             {
             }
@@ -310,6 +311,13 @@ report 50120 "Receipt Voucher"
 
                     if PaymentMethodG.Get(customerLedgerG."Payment Method Code") then;
 
+                    //Start 24-04-2020
+
+                    if ReasonCodeG.Get(customerLedgerG."Reason Code") then
+                        ReasonCodeNameG := ReasonCodeG.Description;
+
+                    //End 24-04-2020
+
 
                     RecGlSetup.Get();
                     if CustomerLedgerG."Currency Code" = '' then
@@ -383,12 +391,14 @@ report 50120 "Receipt Voucher"
     }
 
     var
+        ReasonCodeG: Record "Reason Code";
         UserSetUpG: Record "User Setup";
         UsersG: Record "User";
         CustomerG: Record Customer;
         PaymentMethodG: Record "Payment Method";
         CompanyInfo: Record "Company Information";
         Users: Record User;
+        ReasonCodeNameG: Text;
         InvoiceNumbersG: Text;
         CurrencyCodeTextG: Text;
         UserName: Text;

@@ -306,7 +306,7 @@
                   <Paragraph>
                     <TextRuns>
                       <TextRun>
-                        <Value>=First(Fields!PaymentMethodDesc.Value, "DataSet_Result")</Value>
+                        <Value>=First(Fields!ReasonCodeNameG.Value, "DataSet_Result")</Value>
                         <Style>
                           <FontFamily>Segoe UI</FontFamily>
                           <FontSize>8pt</FontSize>
@@ -1143,19 +1143,19 @@
                   <Width>2.23622cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.97324cm</Width>
+                  <Width>2.62928cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.65054cm</Width>
+                  <Width>4.23804cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>4.72166cm</Width>
+                  <Width>4.16603cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.45121cm</Width>
+                  <Width>2.266cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.91192cm</Width>
+                  <Width>1.40921cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>2.68242cm</Width>
@@ -2138,19 +2138,19 @@
                           <TablixBody>
                             <TablixColumns>
                               <TablixColumn>
-                                <Width>2.55425cm</Width>
+                                <Width>2.69184cm</Width>
                               </TablixColumn>
                               <TablixColumn>
-                                <Width>2.70296cm</Width>
+                                <Width>2.84055cm</Width>
                               </TablixColumn>
                               <TablixColumn>
-                                <Width>2.38026cm</Width>
+                                <Width>2.51785cm</Width>
                               </TablixColumn>
                               <TablixColumn>
-                                <Width>2.65875cm</Width>
+                                <Width>2.79634cm</Width>
                               </TablixColumn>
                               <TablixColumn>
-                                <Width>2.28542cm</Width>
+                                <Width>2.42301cm</Width>
                               </TablixColumn>
                             </TablixColumns>
                             <TablixRows>
@@ -2671,7 +2671,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>="Application Total"</Value>
                                   <Style>
                                     <FontFamily>Segoe UI</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -2679,7 +2679,9 @@
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox62</rd:DefaultName>
@@ -2698,52 +2700,13 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <ColSpan>4</ColSpan>
+                        <ColSpan>5</ColSpan>
                       </CellContents>
                     </TablixCell>
                     <TablixCell />
                     <TablixCell />
                     <TablixCell />
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox34">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>="Application Total"</Value>
-                                  <Style>
-                                    <FontFamily>Segoe UI</FontFamily>
-                                    <FontSize>8pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Right</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox34</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>None</Style>
-                            </Border>
-                            <TopBorder>
-                              <Color>#dee1e2</Color>
-                              <Style>Solid</Style>
-                              <Width>3pt</Width>
-                            </TopBorder>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
+                    <TablixCell />
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox81">
@@ -2998,7 +2961,7 @@
             <Top>3.77695cm</Top>
             <Left>0.33414cm</Left>
             <Height>5.53841cm</Height>
-            <Width>19.62721cm</Width>
+            <Width>19.6272cm</Width>
             <ZIndex>3</ZIndex>
             <Style>
               <Border>
@@ -3052,153 +3015,6 @@
                 <PaddingBottom>2pt</PaddingBottom>
               </Style>
             </Textbox>
-            <Textbox Name="Textbox2">
-              <CanGrow>true</CanGrow>
-              <KeepTogether>true</KeepTogether>
-              <Paragraphs>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>=First(Fields!CompanyName.Value, "DataSet_Result")</Value>
-                      <Style>
-                        <FontFamily>Segoe UI</FontFamily>
-                        <FontSize>8pt</FontSize>
-                        <FontWeight>Bold</FontWeight>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style>
-                    <TextAlign>Right</TextAlign>
-                  </Style>
-                </Paragraph>
-              </Paragraphs>
-              <rd:DefaultName>Textbox1</rd:DefaultName>
-              <Top>0.21125in</Top>
-              <Left>4.32265in</Left>
-              <Height>0.125in</Height>
-              <Width>3.38562in</Width>
-              <ZIndex>1</ZIndex>
-              <Style>
-                <Border>
-                  <Style>None</Style>
-                </Border>
-                <PaddingLeft>2pt</PaddingLeft>
-                <PaddingRight>4pt</PaddingRight>
-                <PaddingTop>2pt</PaddingTop>
-                <PaddingBottom>2pt</PaddingBottom>
-              </Style>
-            </Textbox>
-            <Textbox Name="Textbox3">
-              <CanGrow>true</CanGrow>
-              <KeepTogether>true</KeepTogether>
-              <Paragraphs>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>=First(Fields!CompanyAddress1.Value, "DataSet_Result")</Value>
-                      <Style>
-                        <FontFamily>Segoe UI</FontFamily>
-                        <FontSize>8pt</FontSize>
-                        <FontWeight>Normal</FontWeight>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style>
-                    <TextAlign>Right</TextAlign>
-                  </Style>
-                </Paragraph>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>=Fields!CompanyAddress2.Value +" , " +Fields!CompanyPostcode.Value</Value>
-                      <Style>
-                        <FontFamily>Segoe UI</FontFamily>
-                        <FontSize>8pt</FontSize>
-                        <FontWeight>Normal</FontWeight>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style>
-                    <TextAlign>Right</TextAlign>
-                  </Style>
-                </Paragraph>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>=Fields!CompanyCity.Value +" , "+ First(Fields!CountryNameG.Value, "DataSet_Result")</Value>
-                      <Style>
-                        <FontFamily>Segoe UI</FontFamily>
-                        <FontSize>8pt</FontSize>
-                        <FontWeight>Normal</FontWeight>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style>
-                    <TextAlign>Right</TextAlign>
-                  </Style>
-                </Paragraph>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>=Fields!CompanyHompage.Value</Value>
-                      <Style>
-                        <FontFamily>Segoe UI</FontFamily>
-                        <FontSize>8pt</FontSize>
-                        <FontWeight>Normal</FontWeight>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style>
-                    <TextAlign>Right</TextAlign>
-                  </Style>
-                </Paragraph>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>="Email :-   "+Fields!CompanyEmail.Value</Value>
-                      <Style>
-                        <FontFamily>Segoe UI</FontFamily>
-                        <FontSize>8pt</FontSize>
-                        <FontWeight>Normal</FontWeight>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style>
-                    <TextAlign>Right</TextAlign>
-                  </Style>
-                </Paragraph>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>="VAT :- "+Fields!CompanyVAT.Value</Value>
-                      <Style>
-                        <FontFamily>Segoe UI</FontFamily>
-                        <FontSize>8pt</FontSize>
-                        <FontWeight>Normal</FontWeight>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style>
-                    <TextAlign>Right</TextAlign>
-                  </Style>
-                </Paragraph>
-              </Paragraphs>
-              <rd:DefaultName>Textbox1</rd:DefaultName>
-              <Top>0.3375in</Top>
-              <Left>4.32265in</Left>
-              <Height>0.12715in</Height>
-              <Width>3.38562in</Width>
-              <ZIndex>2</ZIndex>
-              <Style>
-                <Border>
-                  <Style>None</Style>
-                </Border>
-                <PaddingLeft>2pt</PaddingLeft>
-                <PaddingRight>4pt</PaddingRight>
-                <PaddingTop>2pt</PaddingTop>
-                <PaddingBottom>1pt</PaddingBottom>
-              </Style>
-            </Textbox>
             <Image Name="Image2">
               <Source>Database</Source>
               <Value>=First(Fields!CompanyLogo.Value, "DataSet_Result")</Value>
@@ -3208,13 +3024,174 @@
               <Left>0.15176in</Left>
               <Height>1.08389in</Height>
               <Width>3.57861in</Width>
-              <ZIndex>3</ZIndex>
+              <ZIndex>1</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
                 </Border>
               </Style>
             </Image>
+            <Rectangle Name="Rectangle4">
+              <ReportItems>
+                <Textbox Name="Textbox2">
+                  <CanGrow>true</CanGrow>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=First(Fields!CompanyName.Value, "DataSet_Result")</Value>
+                          <Style>
+                            <FontFamily>Segoe UI</FontFamily>
+                            <FontSize>8pt</FontSize>
+                            <FontWeight>Bold</FontWeight>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style>
+                        <TextAlign>Right</TextAlign>
+                      </Style>
+                    </Paragraph>
+                  </Paragraphs>
+                  <rd:DefaultName>Textbox1</rd:DefaultName>
+                  <Top>0.02206in</Top>
+                  <Left>0.5964in</Left>
+                  <Height>0.125in</Height>
+                  <Width>3.38562in</Width>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>4pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Textbox Name="Textbox3">
+                  <CanGrow>true</CanGrow>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=First(Fields!CompanyAddress1.Value, "DataSet_Result")</Value>
+                          <Style>
+                            <FontFamily>Segoe UI</FontFamily>
+                            <FontSize>8pt</FontSize>
+                            <FontWeight>Normal</FontWeight>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style>
+                        <TextAlign>Right</TextAlign>
+                      </Style>
+                    </Paragraph>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=Fields!CompanyAddress2.Value +" , " +Fields!CompanyPostcode.Value</Value>
+                          <Style>
+                            <FontFamily>Segoe UI</FontFamily>
+                            <FontSize>8pt</FontSize>
+                            <FontWeight>Normal</FontWeight>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style>
+                        <TextAlign>Right</TextAlign>
+                      </Style>
+                    </Paragraph>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=Fields!CompanyCity.Value +" , "+ First(Fields!CountryNameG.Value, "DataSet_Result")</Value>
+                          <Style>
+                            <FontFamily>Segoe UI</FontFamily>
+                            <FontSize>8pt</FontSize>
+                            <FontWeight>Normal</FontWeight>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style>
+                        <TextAlign>Right</TextAlign>
+                      </Style>
+                    </Paragraph>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=Fields!CompanyHompage.Value</Value>
+                          <Style>
+                            <FontFamily>Segoe UI</FontFamily>
+                            <FontSize>8pt</FontSize>
+                            <FontWeight>Normal</FontWeight>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style>
+                        <TextAlign>Right</TextAlign>
+                      </Style>
+                    </Paragraph>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>="Email : "+Fields!CompanyEmail.Value</Value>
+                          <Style>
+                            <FontFamily>Segoe UI</FontFamily>
+                            <FontSize>8pt</FontSize>
+                            <FontWeight>Normal</FontWeight>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style>
+                        <TextAlign>Right</TextAlign>
+                      </Style>
+                    </Paragraph>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>="VAT : "+Fields!CompanyVAT.Value</Value>
+                          <Style>
+                            <FontFamily>Segoe UI</FontFamily>
+                            <FontSize>7.9pt</FontSize>
+                            <FontWeight>Normal</FontWeight>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style>
+                        <TextAlign>Right</TextAlign>
+                      </Style>
+                    </Paragraph>
+                  </Paragraphs>
+                  <rd:DefaultName>Textbox1</rd:DefaultName>
+                  <Top>0.14831in</Top>
+                  <Left>0.5714in</Left>
+                  <Height>0.90433in</Height>
+                  <Width>3.4065in</Width>
+                  <ZIndex>1</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>4pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>1pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+              </ReportItems>
+              <KeepTogether>true</KeepTogether>
+              <Top>0.53658cm</Top>
+              <Left>9.47514cm</Left>
+              <Height>3.23025cm</Height>
+              <Width>10.11433cm</Width>
+              <ZIndex>2</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+              </Style>
+            </Rectangle>
           </ReportItems>
           <Style>
             <Border>
@@ -3496,7 +3473,7 @@
         <PageHeight>27.94cm</PageHeight>
         <PageWidth>21.59cm</PageWidth>
         <LeftMargin>0.635cm</LeftMargin>
-        <RightMargin>0cm</RightMargin>
+        <RightMargin>0.5cm</RightMargin>
         <TopMargin>0cm</TopMargin>
         <BottomMargin>0cm</BottomMargin>
         <ColumnSpacing>1.27cm</ColumnSpacing>
@@ -3548,6 +3525,9 @@ End Function
       <Fields>
         <Field Name="Entry_No_">
           <DataField>Entry_No_</DataField>
+        </Field>
+        <Field Name="ReasonCodeNameG">
+          <DataField>ReasonCodeNameG</DataField>
         </Field>
         <Field Name="AmountText">
           <DataField>AmountText</DataField>

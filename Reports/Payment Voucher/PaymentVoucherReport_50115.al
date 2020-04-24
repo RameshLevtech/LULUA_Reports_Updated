@@ -16,6 +16,7 @@ report 50115 "Payment Voucher Report"
             column(Entry_No_; "Entry No.")
             {
             }
+            column(ReasonCodeNameG; ReasonCodeNameG) { }
             column(AmountText; AmountText)
             {
 
@@ -318,8 +319,11 @@ report 50115 "Payment Voucher Report"
                 // else
                 //     Error('Vendor does not exits, So you cannot print the payment voucher');
 
+                if ReasonCodeG.Get(VendorLedEntry_Rec."Reason Code") then
+                    ReasonCodeNameG := ReasonCodeG.Description;
 
                 if "Source Type" = "Source Type"::Vendor then begin
+
                     Clear(RecVendor);
                     if RecVendor.GET("Source No.") AND (RecVendor."Pay to the order of" <> '') then
                         vendorName := RecVendor."Pay to the order of"
@@ -417,12 +421,14 @@ report 50115 "Payment Voucher Report"
     }
 
     var
+        ReasonCodeG: Record "Reason Code";
         VatAmountLed: Record "VAT Entry";
         CompanyInfo: Record "Company Information";
         RecGlSetup: Record "General Ledger Setup";
         Users: Record User;
         RecPaymentMethod: Record "Payment Method";
         UserName: Text;
+        ReasonCodeNameG: Text;
         RecDimValues: Record "Dimension Value";
         OtherDimensionDesc: Text;
         OtherDimensionDesc1: Text;

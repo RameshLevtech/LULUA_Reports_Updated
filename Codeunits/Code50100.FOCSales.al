@@ -272,9 +272,11 @@ codeunit 50100 "FOC Sales Subscriber"
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Gen. Jnl.-Post Line", 'OnAfterInitVendLedgEntry', '', true, true)]
     local procedure OnAfterInitVendLedgEntry(var VendorLedgerEntry: Record "Vendor Ledger Entry"; GenJournalLine: Record "Gen. Journal Line")
     begin
+        Clear(VendorLedgerEntry);
         VendorLedgerEntry."Cash/Cheque Number" := GenJournalLine."Cash/Cheque Number";
         VendorLedgerEntry."Cheque Date" := GenJournalLine."Cheque Date";
         VendorLedgerEntry."Bank Name" := GenJournalLine."Bank Name";
+        VendorLedgerEntry."Pay to the order of" := GenJournalLine."Pay to the order of";
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Gen. Jnl.-Post Line", 'OnAfterInitGLEntry', '', true, true)]

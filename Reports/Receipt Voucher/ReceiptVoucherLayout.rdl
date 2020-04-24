@@ -532,7 +532,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!PaymentMethodDesc.Value</Value>
+                                  <Value>=Fields!ReasonCodeNameG.Value</Value>
                                   <Style>
                                     <FontFamily>Segoe UI</FontFamily>
                                   </Style>
@@ -5793,6 +5793,9 @@ End Function
       <Fields>
         <Field Name="Entry_No_">
           <DataField>Entry_No_</DataField>
+        </Field>
+        <Field Name="ReasonCodeNameG">
+          <DataField>ReasonCodeNameG</DataField>
         </Field>
         <Field Name="MainCash">
           <DataField>MainCash</DataField>
