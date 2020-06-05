@@ -9,241 +9,160 @@ report 50120 "Receipt Voucher"
 
     dataset
     {
-        dataitem("G/L Entry"; "G/L Entry")
+        dataitem("Cust. Ledger Entry"; "Cust. Ledger Entry")
         {
-            RequestFilterFields = "Document No.", "Source Type";
+            RequestFilterFields = "Document No.", "Customer No.", "Posting Date";
             DataItemTableView = SORTING("Entry No.");
+
             column(Entry_No_; "Entry No.")
-            {
-            }
-            column(ReasonCodeNameG; ReasonCodeNameG) { }
-            column(MainCash; MainCash)
-            {
-            }
-            column(Cash_Cheque_Number; "Cash/Cheque Number")
-            {
-
-            }
-            column(Cheque_Date; Format("Cheque Date", 0, '<Day,2>-<Month Text,3>-<Year4>'))
-            {
-
-            }
-            column(Bank_Name; "Bank Name")
-            {
-
-            }
-            column(Bal__Account_Type; "Bal. Account Type")
-            {
-            }
-            column(Bal__Account_No_; "Bal. Account No.")
-            {
-            }
-            column(G_L_Account_Name; "G/L Account Name")
             {
             }
             column(Posting_Date; Format("Posting Date", 0, '<Day,2>-<Month Text,3>-<Year4>'))
             {
             }
-            column(Document_Date; "Document Date")
+            column(ReasonCodeNameG; ReasonCodeNameG)
+            {
+            }
+            column(GlobalDimension1Desc; GlobalDimension1Desc)
             {
             }
             column(Document_No_; "Document No.")
             {
-
             }
-            column(PaymentMethodDesc; PaymentMethodG.Description)
+            column(Currency; CurrencyCodeTextG)
             {
-
             }
-            column(AmountText1; AmountText1)
+            column(AmountCust; "Cust. Ledger Entry".Amount)
             {
-
+            }
+            column(AmountText; AmountText)
+            {
+            }
+            column(Source_No_; "Source Code")
+            {
+            }
+            column(MainCash; MainCash)
+            {
+            }
+            column(Cash_Cheque_Number; "Cash/Cheque Number")
+            {
+            }
+            column(Cheque_Date; Format("Cheque Date", 0, '<Day,2>-<Month Text,3>-<Year4>'))
+            {
+            }
+            column(Bank_Name; "Bank Name")
+            {
             }
             column(CompanyName; CompanyInfo."Long Name")
             {
-            }
-            column(Journal_Batch_Name; "Journal Batch Name")
-            {
-
-            }
-            column(Description; Description)
-            {
-
             }
             column(CompanyAddress1; CompanyInfo.Address)
             {
             }
             column(CompanyAddress2; CompanyInfo."Address 2")
             {
-
             }
             column(CompanyCity; CompanyInfo.City)
             {
-
-            }
-            column(UserName; UserName)
-            {
-
             }
             column(CompanyPostcode; CompanyInfo."Post Code")
             {
-
             }
             column(CompanyCountry; CompanyInfo."Country/Region Code")
             {
-
             }
-            column(CountryNameG; CountryNameG)
-            { }
-
+            column(CountryNameG; CountryG.Name)
+            {
+            }
             column(CompanyEmail; CompanyInfo."E-Mail")
             {
-
             }
-            column(CompanyLogo; RecDimValues.Logo)//CompanyInfo.Picture)
+            column(CompanyLogo; CompanyInfo.Picture)
             {
-
             }
             column(CompanyPhone; CompanyInfo."Phone No.")
             {
-
-            }
-            column(Amount_GLEntry; Amount)
-            {
-
-            }
-            column(BankName; BankName)
-            {
-
-            }
-            column(GlobalDimension1Desc; GlobalDimension1Desc)
-            {
-
-            }
-            column(PaymentTermName; PaymentTermName)
-            {
-
-            }
-            column(CustomerNoDesc; CustomerG.Name + ' - ' + customerLedgerG."Customer No.")
-            {
-
-            }
-            column(DescriptionName; customerLedgerG.Description)
-            {
-
-            }
-            column(AmountCust; customerLedgerG.Amount)
-            {
-
-            }
-            column(AmountText; AmountText)
-            {
-
-            }
-
-            column(VLEAmount; VLEAmount)
-            {
-
             }
             column(CompanyHompage; CompanyInfo."Home Page")
             {
-
             }
-            column(vendorName; vendorName)
+            column(RecDimValuesLogo; RecDimValuesLogo)
             {
-
+            }
+            column(DimensionLogo; RecDimValues.Logo)
+            {
+            }
+            column(UserName; UserName)
+            {
+            }
+            column(CustomerNoDesc; CustomerG.Name + ' - ' + "Customer No.")
+            {
+            }
+            column(DescriptionName; "Cust. Ledger Entry".Description)
+            {
             }
             column(CompanyVAT; CompanyInfo."VAT Registration No.")
             {
-
             }
             column(UsersName; UsersG."Full Name")
             {
-
             }
             column(Document_No_DVLE; InvoiceNumbersG)
             {
-
             }
-            column(Currency; CurrencyCodeTextG)
+            column(PageCaption; PageCaptionCap)
             {
-
+            }
+            column(Customer_No_; "Customer No.")
+            {
             }
             dataitem(DetailedVendorLedgEntry1; "Detailed Cust. Ledg. Entry")
             {
                 DataItemTableView = SORTING("Applied Cust. Ledger Entry No.", "Entry Type") WHERE(Unapplied = CONST(false), "Entry Type" = CONST(Application), "Initial Document Type" = CONST(Invoice));
-                column(Entry_No_DVLE; "Entry No.")
-                {
 
-                }
-                // column(Document_No_DVLE; InvoiceNumbersG)
-                // {
-
-                // }
-                column(Document_Type_DVLE; "Initial Document Type")
-                {
-
-                }
-                column(Initial_Entry_Global_Dim__1_DVLE; "Initial Entry Global Dim. 1")
-                {
-
-                }
-                column(Posting_Date__DVLE; "Posting Date")//Document Date
-                {
-                }
-                column(Amount_DVLE; Amount)
-                {
-                }
                 trigger OnPreDataItem()
                 var
                     myInt: Integer;
                 begin
-                    DetailedVendorLedgEntry1.SETRANGE("Document No.", "G/L Entry"."Document No.");
+                    DetailedVendorLedgEntry1.SETRANGE("Document No.", "Cust. Ledger Entry"."Document No.");
                 end;
 
                 trigger OnAfterGetRecord()
                 var
-                    RecGlSetup: Record "General Ledger Setup";
+                    myInt: Integer;
                 begin
-                    //     VendorLedgerEntry.RESET;
-                    //     //VendorLedgerEntry.SETRANGE("Entry No.", DetailedVendorLedgEntry1."Vendor Ledger Entry No.");
-                    //     IF VendorLedgerEntry.FINDFIRST THEN;
-                    // Clear(InvoiceNumbersG);
-                    CustomerLedgerEntryG.RESET;
-
                     CustomerLedgerEntryG.SETRANGE("Entry No.", DetailedVendorLedgEntry1."Cust. Ledger Entry No.");
                     IF CustomerLedgerEntryG.FindFirst() THEN
                         if InvoiceNumbersG <> '' then begin
                             if StrPos(InvoiceNumbersG, CustomerLedgerEntryG."Document No.") <= 0 then
-                                InvoiceNumbersG := InvoiceNumbersG + ',' + CustomerLedgerEntryG."Document No."
+                                InvoiceNumbersG := InvoiceNumbersG + ', ' + CustomerLedgerEntryG."Document No."
                         end else
                             InvoiceNumbersG := CustomerLedgerEntryG."Document No.";
                 end;
             }
-
             trigger OnAfterGetRecord()
             var
-                GLentryRecL: Record "G/L Entry";
                 RecGlSetup: Record "General Ledger Setup";
-                RecVendor: Record Vendor;
-                VendorLedEntry_Rec: Record "Vendor Ledger Entry";
-                RecPaymentMethod: Record "Payment Method";
                 CountryL: Record "Country/Region";
-                PaymentTermsL: Record "Payment Terms";
+                GLentryRec2L: Record "G/L Entry";
+                CustLedgL: Record "Cust. Ledger Entry";
             begin
-
-                if "Bal. Account Type" = "Bal. Account Type"::Customer then
-                    MainCash := "G/L Entry"."G/L Account No." + ' - ' + "G/L Entry"."G/L Account Name";
-
-                GLentryRecL.CopyFilters("G/L Entry");
-                GLentryRecL.SetRange("Document No.", "G/L Entry"."Document No.");
-                GLentryRecL.SetRange("Source Type", "G/L Entry"."Source Type"::Customer);
-                if not GLentryRecL.FindFirst() then
-                    Error('Customer does not exits, So you cannot print the receipt voucher');
-
+                Clear(InvoiceNumbersG);
+                Clear(CustomerLedgerEntryG);
+                if "Cust. Ledger Entry".Reversed = true then Error('You Cannot Print Receipt Voucher It Has Been Reversed');
+                Clear(MainCash);
+                GLentryRec2L.SetFilter("Entry No.", '<>%1', "Cust. Ledger Entry"."Entry No.");
+                GLentryRec2L.SetRange("Document No.", "Cust. Ledger Entry"."Document No.");
+                GLentryRec2L.SetRange("Source Code", 'CASHRECJNL');
+                if GLentryRec2L.FindSet() then
+                    repeat
+                        if MainCash <> '' then
+                            MainCash := MainCash + ', ' + GLentryRec2L."G/L Account No."
+                        else
+                            MainCash := GLentryRec2L."G/L Account No.";
+                    until GLentryRec2L.Next() = 0;
                 Clear(CustomerG);
-                Clear(customerLedgerG);
-                CalcFields("G/L Account Name");
+                // CalcFields("G/L Account Name");
                 Clear(RecDimValues);
                 RecGlSetup.GET;
                 Clear(GlobalDimension1Desc);
@@ -251,137 +170,58 @@ report 50120 "Receipt Voucher"
                 RecDimValues.SetRange(Code, "Global Dimension 1 Code");
                 if RecDimValues.FindFirst() then begin
                     RecDimValues.CalcFields(Logo);
+                    RecDimValuesLogo := RecDimValues.Logo.HasValue;
                     GlobalDimension1Desc := RecDimValues.Name;
                 end;
+                if CustomerG.Get("Customer No.") then;
 
-                if "Source Type" = "Source Type"::Vendor then begin
-                    Clear(RecVendor);
-                    if RecVendor.GET("Source No.") then
-                        vendorName := RecVendor."Pay to the order of";
-                end;
-                if "Source Type" = "Source Type"::"Bank Account" then begin
-                    Clear(RecBankAccount);
-                    if RecBankAccount.GET("Source No.") then
-                        BankName := RecBankAccount.Name;
-                end;
-
-
-
-
-                // ConvertAmountInWords.InitTextVariable;
-                // ConvertAmountInWords.FormatNoText(AmtInwrd11, tvar, '');
-                // AmtInwrd12 := AmtInwrd11[1];
-                // IF AmtInwrd12 = '' THEN
-                //     AmtInwrd12 := 'ZERO';
-                // ConvertAmountInWords.InitTextVariable;
-                // ConvertAmountInWords.FormatNoText(Amount_Words, TotalAmt, customerLedgerG."Currency Code");
-                // Text := Amount_Words[1];
-                // // AmountText1 := Text + ' ' + CurrCode + ' AND ' + AmtInwrd12 + ' ' + DecimalDec + ' ONLY';
-                // AmountText1 := Text + ' ' + RecGlSetup."LCY Code" + ' AND ' + AmtInwrd12 + ' ' + ' ONLY';
-
-
-                IF "Source Type" = "Source Type"::Vendor THEN BEGIN
-                    Clear(VendorLedEntry_Rec);
-                    VendorLedEntry_Rec.SetRange("Document Type", VendorLedEntry_Rec."Document Type"::Payment);
-                    VendorLedEntry_Rec.SETRANGE("Document No.", "Document No.");
-                    IF VendorLedEntry_Rec.FIND('-') THEN begin
-                        CurrencyCode := VendorLedEntry_Rec."Currency Code";
-                        VendorLedEntry_Rec.CalcFields(Amount);
-                        VLEAmount := VendorLedEntry_Rec.Amount;
-                        if VLEAmount < 0 then
-                            VLEAmount := VLEAmount * -1;
-                        Clear(RecPaymentMethod);
-                        if RecPaymentMethod.GET(VendorLedEntry_Rec."Payment Method Code") then
-                            PaymentMethodDesc := RecPaymentMethod.Description;
-                    end;
-                END;
-
-                //Start Ramesh
-                // CountryL.SetRange(Code, "Sales Header"."Sell-to Country/Region Code");
-                // if CountryL.FindSet() then
-                if CountryL.Get(CompanyInfo."Country/Region Code") then
-                    CountryNameG := CountryL."County Name";
-
-                customerLedgerG.SetRange("Document No.", "G/L Entry"."Document No.");
-                if customerLedgerG.FindFirst() then begin
-                    customerLedgerG.CalcFields(Amount);
-                    if PaymentTermsL.Get(customerLedgerG."Payment Method Code") then
-                        PaymentTermName := PaymentTermsL.Description;
-
-
-                    if PaymentMethodG.Get(customerLedgerG."Payment Method Code") then;
-
-                    //Start 24-04-2020
-
-                    if ReasonCodeG.Get(customerLedgerG."Reason Code") then
-                        ReasonCodeNameG := ReasonCodeG.Description;
-
-                    //End 24-04-2020
-
-
-                    RecGlSetup.Get();
-                    if CustomerLedgerG."Currency Code" = '' then
-                        CurrencyCodeTextG := RecGlSetup."LCY Code"
-                    else
-                        CurrencyCodeTextG := CustomerLedgerG."Currency Code";
-
-                end;
-
-
-
-                CustomerG.SetRange("No.", customerLedgerG."Customer No.");
-                if CustomerG.FindFirst() then;
-
-                TotalAmt := TotalAmt + Abs(customerLedgerG.Amount);//"Debit Amount";
-
-                tvar := (ROUND(TotalAmt) MOD 1 * 100);
+                Clear(ReasonCodeNameG);
+                if ReasonCodeG.Get("Reason Code") then ReasonCodeNameG := ReasonCodeG.Description;
+                RecGlSetup.Get();
+                if "Cust. Ledger Entry"."Currency Code" = '' then
+                    CurrencyCodeTextG := RecGlSetup."LCY Code"
+                else
+                    CurrencyCodeTextG := "Cust. Ledger Entry"."Currency Code";
+                TotalAmt := Abs("Cust. Ledger Entry".Amount); //"Debit Amount";
+                IntegerAmountG := (TotalAmt DIV 1);
+                DecimalAmountG := (ROUND(TotalAmt) MOD 1 * 100);
                 ConvertAmountInWord.InitTextVariable;
-                ConvertAmountInWord.FormatNoText(AmtInwrdArray1, tvar, CurrencyCodeTextG);
-                AmountInWords := AmtInwrdArray1[1];
-                IF AmountInWords = '' THEN
-                    AmountInWords := 'ZERO';
-                ConvertAmountInWord.InitTextVariable;
-                ConvertAmountInWord.FormatNoText(AmtInwrdArray2, TotalAmt, CurrencyCodeTextG);
+                ConvertAmountInWord.FormatNoText(AmtInwrdArray2, IntegerAmountG, CurrencyCodeTextG);
                 AmountInWords2 := AmtInwrdArray2[1];
-                //AmountText1 := Text + ' ' + CurrCode + ' AND ' + AmtInwrdArray2 + ' ' + DecimalDec + ' ONLY';
-                AmountText := CurrencyCodeTextG + ' ' + AmountInWords2;//+ ' AND ' + AmountInWords + ' ONLY';
-                                                                       // if  DimensionG.Get("G/L Entry"."Global Dimension 1 Code")then
-
-
+                AmountInWords2 := CopyStr(AmountInWords2, 1, StrPos(AmountInWords2, 'ONLY') - 2);
+                if CurrencyG.Get(CurrencyCodeTextG) then
+                    if (CurrencyG."Currency Fractional Value" > 0) AND (DecimalAmountG > 0) then
+                        AmountText := CurrencyCodeTextG + ' ' + AmountInWords2 + 'AND ' + Format(DecimalAmountG) + '/' + Format(CurrencyG."Currency Fractional Value") + ' ' + CurrencyG."Subsidary Currency" + ' ONLY'
+                    else
+                        AmountText := CurrencyCodeTextG + ' ' + AmountInWords2 + 'ONLY';
                 UsersG.SetRange("User Name", "User ID");
                 if UsersG.FindFirst() then;
                 Users.SetCurrentKey("User Name");
-                Users.SetRange("User Name", "G/L Entry"."User ID");
+                Users.SetRange("User Name", "Cust. Ledger Entry"."User ID");
                 IF Users.FindFirst() then begin
                     if Users."Full Name" <> '' then
                         UserName := Users."Full Name"
                     else
                         UserName := UserId;
                 end;
-
             end;
-            //Stop Ramesh
-
-
 
             trigger OnPreDataItem()
             var
                 myInt: Integer;
             begin
-
                 CompanyInfo.GET;
                 CompanyInfo.CalcFields(Picture);
-
+                if CountryG.Get(CompanyInfo."Country/Region Code") then;
+                // CountryNameG := CountryL."County Name";
             end;
         }
     }
-
     requestpage
     {
         layout
         {
         }
-
         actions
         {
             area(processing)
@@ -389,8 +229,9 @@ report 50120 "Receipt Voucher"
             }
         }
     }
-
     var
+        PageCaptionCap: Label 'Page %1 of %2';
+        CountryG: Record "Country/Region";
         ReasonCodeG: Record "Reason Code";
         UserSetUpG: Record "User Setup";
         UsersG: Record "User";
@@ -398,6 +239,11 @@ report 50120 "Receipt Voucher"
         PaymentMethodG: Record "Payment Method";
         CompanyInfo: Record "Company Information";
         Users: Record User;
+        AmountDecimalPlaceG: Text;
+        CurrencyG: Record Currency;
+        DecimalAmountG: Decimal;
+        IntegerAmountG: Integer;
+        RecDimValuesLogo: Boolean;
         ReasonCodeNameG: Text;
         InvoiceNumbersG: Text;
         CurrencyCodeTextG: Text;
@@ -415,10 +261,8 @@ report 50120 "Receipt Voucher"
         AmountInWords: Text;
         AmountInWords2: Text;
         AmtInwrdArray1: array[2] of Text;
-
         AmtInwrdArray2: array[2] of Text;
         AmountText: Text;
-
         vendorName: Text;
         CountryNameG: Text;
         RecBankAccount: Record "Bank Account";

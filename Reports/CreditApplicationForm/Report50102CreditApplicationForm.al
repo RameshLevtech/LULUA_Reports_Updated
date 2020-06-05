@@ -13,6 +13,8 @@ report 50131 "Credit Application Form"
             { }
             column(Name; Name)
             { }
+            column(Currency_Code; "Currency Code")
+            { }
             column(Address; Address)
             { }
             column(E_Mail; "E-Mail")
@@ -27,19 +29,30 @@ report 50131 "Credit Application Form"
             { }
             column(Partner_Type; "Partner Type")
             { }
-            column(Company_Picture; CompanyInfoRecLbl.Picture)
+            column(Company_Picture; CompanyInfoRec.Picture)
             { }
-            column(Company_Name; CompanyInfoRecLbl.Name)
+            column(Company_Name; CompanyInfoRec."Long Name")
             { }
-            column(Company_Add1; CompanyInfoRecLbl.Address)
+            column(Company_Add1; CompanyInfoRec.Address)
             { }
-            column(Company_Add2; CompanyInfoRecLbl."Address 2")
+            column(Company_Add2; CompanyInfoRec."Address 2")
             { }
-            column(Company_City; CompanyInfoRecLbl.City)
+            column(CompanyPostcode; CompanyInfoRec."Post Code")
+            {
+            }
+            column(Company_City; CompanyInfoRec.City)
             { }
-            column(Company_Country; CompanyInfoRecLbl."Country/Region Code")
+            column(Company_Country; CompanyInfoRec."Country/Region Code")
             { }
-            column(Company_Phone; CompanyInfoRecLbl."Phone No.")
+            column(Company_Phone; CompanyInfoRec."Phone No.")
+            { }
+            column(Company_Email; CompanyInfoRec."E-Mail")
+            {
+            }
+            column(Company_VAT; CompanyInfoRec."VAT Registration No.")
+            {
+            }
+            column(CompanyInfoHomePage; CompanyInfoRec."Home Page")
             { }
             column(CustomerNoLbl; CustomerNoLbl) { }
             column(CustomerNameLbl; CustomerNameLbl) { }
@@ -92,7 +105,7 @@ report 50131 "Credit Application Form"
             column(TelephoneExtensionLbl; TelephoneExtensionLbl) { }
             column(SignatureLbl; SignatureLbl) { }
             column(SinglyLbl; SinglyLbl) { }
-            column(DeclerationLbl; DeclerationLbl) { }
+            column(DeclerationLbl; AdditionalCompanyNameG) { }
             column(PrintNameLbl; PrintNameLbl) { }
             column(SignLbl; SignLbl) { }
             column(DateLbl; DateLbl) { }
@@ -102,24 +115,37 @@ report 50131 "Credit Application Form"
             column(PartnersCertificateLbl; PartnersCertificateLbl)
             { }
             column(OwnersPassportLbl; OwnersPassportLbl) { }
+            column(CompanyStampLbl; CompanyStampLbl) { }
+            column(CountryNameG; CountryG.Name)
+            { }
 
+            trigger OnAfterGetRecord()
+            var
 
+            begin
+
+            end;
         }
     }
+
 
     labels
     {
     }
     trigger OnPreReport()
     var
-        myInt: Integer;
+        CountryL: Record "Country/Region";
     begin
-        CompanyInfoRecLbl.Get();
-        CompanyInfoRecLbl.CalcFields(Picture);
+        CompanyInfoRec.Get();
+        CompanyInfoRec.CalcFields(Picture);
+        AdditionalCompanyNameG := StrSubstNo(DeclerationLbl, CompanyInfoRec.Name);
+        if CountryG.Get(CompanyInfoRec."Country/Region Code") then;
+        // CountryNameG := CountryL."County Name";
     end;
 
     var
-        CompanyInfoRecLbl: Record "Company Information";
+        CountryG: Record "Country/Region";
+        CompanyInfoRec: Record "Company Information";
         CreditApplicationFormLbl: Label 'CREDIT APPLICATION FORM';
         CustomerNoLbl: Label 'Company Number';
         CustomerNameLbl: Label 'Customer Name';
@@ -145,14 +171,14 @@ report 50131 "Credit Application Form"
         FaxNumberLbl: Label 'Fax Number';
         NationalityLbl: Label 'Nationality';
         AddressLbl: Label 'Address';
-        CreditLimitLbl: Label 'Credit Limit(AED)';
+        CreditLimitLbl: Label 'Credit Limit';
         PaymentTermsLbl: Label 'Payment Terms';
         RegistrationLbl: Label 'Registration/License No';
-        SalesTurnoverLbl: Label 'Sales Turnover(AED)';
+        SalesTurnoverLbl: Label 'Sales Turnover';
         NumberofEmployeesLbl: Label 'Number Of Employees';
         DesignationLbl: Label 'Designation';
         CreditRequiredLbl: Label 'Credit Required';
-        CreditvalueLbl: Label 'Credit Value(AED)';
+        CreditvalueLbl: Label 'Credit Value';
         CreditPeriodLbl: Label 'Credit Period';
         CreditModeLbl: Label 'Credit Mode';
         BankDetailsLbl: Label 'Bank Details';
@@ -171,7 +197,7 @@ report 50131 "Credit Application Form"
         TelephoneExtensionLbl: Label 'Telephone No. & Extension';
         SignatureLbl: Label 'Signature';
         SinglyLbl: Label 'Singly/Jointly';
-        DeclerationLbl: Label 'We/ I hereby apply for a Credit Limit and agree to pay to the terms of my account and being an authorized person of the applicant company, jointly and Serverally guarantee performance of all the Companys financial obligations to ALHI General Trading L.L.C. We aslo acknowledge and accept your terms and conditions of sale.';
+        DeclerationLbl: Label 'We/ I hereby apply for a Credit Limit and agree to pay to the terms of my account and being an authorized person of the applicant company, jointly and Serverally guarantee performance of all the Companys financial obligations to %1 We aslo acknowledge and accept your terms and conditions of sale.';
         PrintNameLbl: Label 'Print Name:';
         SignLbl: Label 'Sign:';
         DateLbl: Label 'Date:';
@@ -180,5 +206,8 @@ report 50131 "Credit Application Form"
         ChamberLbl: Label 'Chamber Of Commerece Certificate';
         PartnersCertificateLbl: Label 'Partners Certificate';
         OwnersPassportLbl: Label 'Owners Passport Copies';
+        AdditionalCompanyNameG: Text;
+        CountryNameG: Text;
+        CompanyStampLbl: Label 'Company Stamp';
 
 }

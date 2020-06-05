@@ -15,6 +15,10 @@ pageextension 50103 "Foc SalesInvoice" extends "Sales Invoice Subform"
             {
                 ApplicationArea = All;
             }
+            field("Additional Parent Item"; "Additional Parent Item")
+            {
+                ApplicationArea = All;
+            }
         }
     }
 }

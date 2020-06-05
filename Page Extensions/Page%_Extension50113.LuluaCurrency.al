@@ -8,6 +8,10 @@ pageextension 50113 "Currency Ext" extends Currencies
             {
                 ApplicationArea = All;
             }
+            field("Currency Fractional Value"; "Currency Fractional Value")
+            {
+                ApplicationArea = All;
+            }
         }
     }
 

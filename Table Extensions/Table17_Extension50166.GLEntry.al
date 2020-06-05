@@ -17,6 +17,11 @@ tableextension 50166 "Ext G/L Entry" extends "G/L Entry"
             DataClassification = ToBeClassified;
             Caption = 'Bank Name';
         }
+        field(50005; "Bank Charges"; Text[50])
+        {
+            DataClassification = ToBeClassified;
+            Caption = 'Bank Charges';
+        }
     }
 
     var

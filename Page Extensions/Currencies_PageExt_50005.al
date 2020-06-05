@@ -9,6 +9,10 @@ pageextension 50006 Currencycard extends "Currency Card"
             {
                 ApplicationArea = All;
             }
+            field("Currency Fractional Value"; "Currency Fractional Value")
+            {
+                ApplicationArea = All;
+            }
         }
     }
 

@@ -16,6 +16,10 @@ pageextension 50152 GLEntries extends "General Ledger Entries"
             {
                 ApplicationArea = All;
             }
+            field("Bank Charges"; "Bank Charges")
+            {
+                ApplicationArea = All;
+            }
         }
     }
 

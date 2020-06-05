@@ -2,7 +2,13 @@ pageextension 50112 "EXt Customer Card" extends "Customer Card"
 {
     layout
     {
-        // Add changes to page layout here
+        addafter("No.")
+        {
+            field("Customer ID"; "Customer ID")
+            {
+                ApplicationArea = All;
+            }
+        }
     }
 
     actions

@@ -6,5 +6,10 @@ tableextension 50162 "Vendor Ext" extends Vendor
         {
             DataClassification = ToBeClassified;
         }
+        field(50001; "Vendor ID"; Text[250])
+        {
+            DataClassification = ToBeClassified;
+            Caption = 'ID';
+        }
     }
 }

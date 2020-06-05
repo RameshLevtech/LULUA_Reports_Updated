@@ -2,7 +2,7 @@ report 50101 "Sales Invoice Report"
 {
     DefaultLayout = RDLC;
     RDLCLayout = 'Reports\SI\Sales Invoice.rdl';
-    Caption = 'Sales Invoice';
+    Caption = 'Sales Invoice Without VAT';
     PreviewMode = PrintLayout;
     ApplicationArea = All;
     UsageCategory = ReportsAndAnalysis;
@@ -11,10 +11,16 @@ report 50101 "Sales Invoice Report"
     {
         dataitem("Sales Header"; "Sales Invoice Header")
         {
-            DataItemTableView = SORTING("No.")
-                                ORDER(Ascending);
+            DataItemTableView = SORTING("No.");
             RequestFilterFields = "No.", "Sell-to Customer No.";
             column(CompanyName; CompanyInfo."Long Name")
+            {
+            }
+            column(CustomerContact; CustomerG.Contact) { }
+            column(CustomerPh; CustomerG."Phone No.") { }
+            column(CustomerEmail; CustomerG."E-Mail") { }
+            column(CustomerVAT; CustomerG."VAT Registration No.") { }
+            column(ChecKFOCIsBoolean; ChecKFOCIsBoolean)
             {
             }
             column(CompanyAddress1; CompanyInfo.Address)
@@ -58,7 +64,7 @@ report 50101 "Sales Invoice Report"
             {
 
             }
-            column(BankSortCode; RecBankAcc."Bank Clearing Code")
+            column(BankSortCode; RecBankAcc."Sort Code")
             {
 
             }
@@ -70,19 +76,15 @@ report 50101 "Sales Invoice Report"
             {
 
             }
-            column(Bill_to_Address; "Bill-to Address")
+            column(Bill_to_Address; CustomerG.Address)
             {
 
             }
-            column(Bill_to_Address_2; "Bill-to Address 2")
+            column(Bill_to_Address_2; CustomerG."Address 2")
             {
 
             }
-            column(Bill_to_City; "Bill-to City")
-            {
-
-            }
-            column(Bill_to_Contact; "Bill-to Contact")
+            column(Bill_to_City; CustomerG.City)
             {
 
             }
@@ -90,23 +92,23 @@ report 50101 "Sales Invoice Report"
             {
 
             }
-            column(Bill_to_Post_Code; "Bill-to Post Code")
+            column(Bill_to_Post_Code; CustomerG."Post Code")
             {
 
             }
-            column(Ship_to_Address; "Ship-to Address")
+            column(Ship_to_Address; AdditionalShipAddr)
             {
 
             }
-            column(Ship_to_Address_2; "Ship-to Address 2")
+            column(Ship_to_Address_2; AdditionalShipAddr1)
             {
 
             }
-            column(Ship_to_City; "Ship-to City")
+            column(Ship_to_City; AdditionalShipCity)
             {
 
             }
-            column(Ship_to_Name; "Ship-to Name")
+            column(Ship_to_Name; AdditionalShipName)
             {
 
             }
@@ -117,7 +119,11 @@ report 50101 "Sales Invoice Report"
             column(Ship_to_Country_Region_Code; ShipToCountry)////"Ship-to Country/Region Code")
             {
             }
-            column(Posting_Date; "Posting Date")
+            column(Ship_to_Contact; AdditionalShipContact) { }
+            column(Ship_to_Ph; AdditionalShipPh) { }
+            column(Ship_to_Email; AdditionalShipEmail) { }
+            column(Ship_to_Vat; AdditionalShipVat) { }
+            column(Posting_Date; Format("Posting Date", 0, '<Day,2>-<Month Text,3>-<Year4>'))
             {
 
             }
@@ -125,7 +131,7 @@ report 50101 "Sales Invoice Report"
             {
 
             }
-            column(Ship_to_Post_Code; "Ship-to Post Code")
+            column(Ship_to_Post_Code; AdditionalShipPost)
             {
             }
             column(SalesOrderNo_; "No.")
@@ -168,11 +174,14 @@ report 50101 "Sales Invoice Report"
             {
 
             }
+            column(TotalQtySumG; TotalQtySumG) { }
+
             dataitem("Sales Line"; "Sales Invoice Line")
             {
                 DataItemLink = "Document No." = FIELD("No.");
-                DataItemTableView = SORTING("Document No.", "Line No.")
-                                    ORDER(Ascending);
+                DataItemLinkReference = "Sales Header";
+                DataItemTableView = SORTING("Document No.", "Line No.");
+
                 column(SalesLine_No_; "No.")
                 {
                 }
@@ -211,6 +220,9 @@ report 50101 "Sales Invoice Report"
                 column(Unit_Price; "Unit Price")
                 {
                 }
+                column(Unit_of_Measure_Code; "Unit of Measure Code")
+                {
+                }
                 column(Amount; Amount)
                 {
                 }
@@ -239,19 +251,20 @@ report 50101 "Sales Invoice Report"
                 var
                     myInt: Integer;
                 begin
-                    IF (CheckList.Count = 0) AND ("Sales Line".Type <> "Sales Line".Type::" ") THEN
+                    // IF (CheckList.Count = 0) AND ("Sales Line".Type <> "Sales Line".Type::" ") THEN
+                    //     SLNo += 1;
+                    // if (CheckList.Count = 0) AND ("Sales Line".Type <> "Sales Line".Type::" ") then
+                    //     CheckList.Add(FORMAT("Sales Line".Type) + "Sales Line"."No." + "Sales Line".Description);
+                    // if CheckList.Count <> 0 then begin
+                    //     if not CheckList.Contains(FORMAT("Sales Line".Type) + "Sales Line"."No." + "Sales Line".Description) then begin
+                    //         if "Sales Line".Type <> "Sales Line".Type::" " then begin
+                    //             SLNo += 1;
+                    //             CheckList.Add(FORMAT("Sales Line".Type) + "Sales Line"."No." + "Sales Line".Description);
+                    //         end;
+                    //     end;
+                    // end;
+                    if "Sales Line".Type <> "Sales Line".Type::" " then
                         SLNo += 1;
-                    if (CheckList.Count = 0) AND ("Sales Line".Type <> "Sales Line".Type::" ") then
-                        CheckList.Add(FORMAT("Sales Line".Type) + "Sales Line"."No." + "Sales Line".Description);
-                    if CheckList.Count <> 0 then begin
-                        if not CheckList.Contains(FORMAT("Sales Line".Type) + "Sales Line"."No." + "Sales Line".Description) then begin
-                            if "Sales Line".Type <> "Sales Line".Type::" " then begin
-                                SLNo += 1;
-                                CheckList.Add(FORMAT("Sales Line".Type) + "Sales Line"."No." + "Sales Line".Description);
-                            end;
-                        end;
-                    end;
-
                     if Type = Type::" " then
                         IsComment := true
                     else
@@ -262,8 +275,10 @@ report 50101 "Sales Invoice Report"
                         FOCQty := Quantity
                     else
                         NormalQty := Quantity;
-                end;
 
+                    // if "Sales Line".Type = "Sales Line".Type::Item then
+                    //     TotalQtySumG += "Sales Line".Quantity;
+                end;
 
                 trigger OnPreDataItem()
                 var
@@ -287,7 +302,9 @@ report 50101 "Sales Invoice Report"
             trigger OnAfterGetRecord()
             var
                 RecPT: Record "Payment Terms";
+                SalesInvoiceLineL: Record "Sales Invoice Line";
             begin
+                TotalQtySumG := 0;
                 RecGlSetup.GET;
                 Clear(RecDimValues);
                 Clear(GlobalDimension1Desc);
@@ -306,17 +323,6 @@ report 50101 "Sales Invoice Report"
                     PaymentTermsDesc := RecPT.Description;
                 end;
 
-                Clear(RecCountry);
-                Clear(ShipToCountry);
-                if RecCountry.GET("Ship-to Country/Region Code") then
-                    ShipToCountry := RecCountry.Name;
-
-                Clear(RecCountry);
-                Clear(BillToCountry);
-                if RecCountry.GET("Bill-to Country/Region Code") then
-                    BillToCountry := RecCountry.Name;
-
-
                 Clear(CurrencyCode);
                 if "Sales Header"."Currency Code" <> '' then
                     CurrencyCode := "Sales Header"."Currency Code"
@@ -327,16 +333,70 @@ report 50101 "Sales Invoice Report"
 
                 "Sales Header".CalcFields("Amount Including VAT");
                 TotalAmt := "Sales Header"."Amount Including VAT";
-                tvar := (ROUND(TotalAmt) MOD 1 * 100);
+                IntegerAmountG := (TotalAmt DIV 1);
+                DecimalAmountG := (ROUND(TotalAmt) MOD 1 * 100);
                 ConvertAmountInWord.InitTextVariable;
-                ConvertAmountInWord.FormatNoText(AmtInwrdArray1, tvar, "Sales Header"."Currency Code");
-                AmountInWords := AmtInwrdArray1[1];
-                IF AmountInWords = '' THEN
-                    AmountInWords := 'ZERO';
-                ConvertAmountInWord.InitTextVariable;
-                ConvertAmountInWord.FormatNoText(AmtInwrdArray2, TotalAmt, "Sales Header"."Currency Code");
+                ConvertAmountInWord.FormatNoText(AmtInwrdArray2, IntegerAmountG, "Sales Header"."Currency Code");
                 AmountInWords2 := AmtInwrdArray2[1];
-                AmountText := "Sales Header"."Currency Code" + ' ' + AmountInWords2;
+                AmountInWords2 := CopyStr(AmountInWords2, 1, StrPos(AmountInWords2, 'ONLY') - 2);
+                if CurrencyG.Get(CurrencyCode) then;
+                //AmountInWords2 := DelChr(AmountInWords2, '=', CurrencyG."Subsidary Currency");
+                //StrPos(AmountInWords2, CurrencyG."Subsidary Currency");
+                // AmountInWords2 := DelStr(AmountInWords2, StrPos(AmountInWords2, CurrencyG."Subsidary Currency"), StrLen(CurrencyG."Subsidary Currency"));
+                if CurrencyG."Subsidary Currency" <> '' then
+                    AmountInWords2 := AmountInWords2.Replace(CurrencyG."Subsidary Currency", '');
+                if (CurrencyG."Currency Fractional Value" > 0) AND (DecimalAmountG > 0) then
+                    AmountText := CurrencyCode + ' ' + AmountInWords2 + 'AND ' + Format(DecimalAmountG) + '/' + Format(CurrencyG."Currency Fractional Value") + ' ' + CurrencyG."Subsidary Currency" + '' + ' ONLY'
+                else
+                    AmountText := CurrencyCode + ' ' + AmountInWords2 + '' + 'ONLY';
+
+                //Start 12/05/2020
+                If CustomerG.Get("Sales Header"."Sell-to Customer No.") then;
+
+                if "Sales Header"."Ship-to Code" <> '' then begin
+                    AdditionalShipName := "Sales Header"."Ship-to Name";
+                    AdditionalShipAddr := "Sales Header"."Ship-to Address";
+                    AdditionalShipAddr1 := "Sales Header"."Ship-to Address 2";
+                    AdditionalShipCity := "Sales Header"."Ship-to City";
+                    AdditionalShipPost := "Sales Header"."Ship-to Post Code";
+                    AdditionalShipCountry := "Sales Header"."Ship-to Country/Region Code";
+                    AdditionalShipContact := "Sales Header"."Ship-to Contact";
+
+                end else begin
+                    AdditionalShipName := CustomerG.Name;
+                    AdditionalShipAddr := CustomerG.Address;
+                    AdditionalShipAddr1 := CustomerG."Address 2";
+                    AdditionalShipCity := CustomerG.City;
+                    AdditionalShipPost := CustomerG."Post Code";
+                    AdditionalShipCountry := CustomerG."Country/Region Code";
+                    AdditionalShipPh := CustomerG."Phone No.";
+                    AdditionalShipContact := CustomerG.Contact;
+                    AdditionalShipEmail := CustomerG."E-Mail";
+                    AdditionalShipVat := CustomerG."VAT Registration No.";
+                end;
+
+                Clear(RecCountry);
+                Clear(ShipToCountry);
+                if RecCountry.GET(AdditionalShipCountry) then
+                    ShipToCountry := RecCountry.Name;
+
+                Clear(RecCountry);
+                Clear(BillToCountry);
+                if RecCountry.GET(CustomerG."Country/Region Code") then
+                    BillToCountry := RecCountry.Name;
+
+                // ?SalesInvoiceLineL.SetRange("Document Type", SalesLineL."Document Type"::Invoice);
+                SalesInvoiceLineL.SetRange("Document No.", "Sales Header"."No.");
+                SalesInvoiceLineL.SetRange("FOC Sales", true);
+                ChecKFOCIsBoolean := not SalesInvoiceLineL.IsEmpty;
+                // if SalesLineL.FindFirst() then
+                //End 12/05/2020
+                SalesInvoiceLineL.SetRange("FOC Sales", false);
+                SalesInvoiceLineL.SetRange(Type, SalesInvoiceLineL.Type::Item);
+                if SalesInvoiceLineL.FindSet() then
+                    repeat
+                        TotalQtySumG += SalesInvoiceLineL.Quantity;
+                    until SalesInvoiceLineL.Next() = 0;
             end;
 
             trigger OnPreDataItem()
@@ -384,9 +444,22 @@ report 50101 "Sales Invoice Report"
 
 
     var
+        ChecKFOCIsBoolean: Boolean;
+        CustomerG: Record Customer;
         CompanyInfo: Record "Company Information";
         CheckList: List of [Text];
         RecGlSetup: Record "General Ledger Setup";
+        AdditionalShipName: Text;
+        AdditionalShipAddr: Text;
+        TotalQtySumG: Integer;
+        AdditionalShipAddr1: Text;
+        AdditionalShipCity: Text;
+        AdditionalShipPost: Text;
+        AdditionalShipCountry: Text;
+        AdditionalShipPh: Text;
+        AdditionalShipContact: Text;
+        AdditionalShipEmail: Text;
+        AdditionalShipVat: Text;
         Bank: Text;
         RecBankAcc: Record "Bank Account";
         RecDimValues: Record "Dimension Value";
@@ -398,6 +471,9 @@ report 50101 "Sales Invoice Report"
         FOCQty: Decimal;
         NormalQty: Decimal;
         SLNo: Integer;
+        DecimalAmountG: Decimal;
+        IntegerAmountG: Integer;
+        CurrencyG: Record Currency;
         TotalAmt: Decimal;
         tvar: Decimal;
         ConvertAmountInWord: Codeunit 50150;

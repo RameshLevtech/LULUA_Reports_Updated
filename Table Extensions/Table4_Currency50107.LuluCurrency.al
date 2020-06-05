@@ -6,6 +6,10 @@ tableextension 50107 "Currency Ext" extends Currency
         {
             DataClassification = ToBeClassified;
         }
+        field(50001; "Currency Fractional Value"; Integer)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     var

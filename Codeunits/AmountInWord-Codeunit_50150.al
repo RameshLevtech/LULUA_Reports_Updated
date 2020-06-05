@@ -228,6 +228,7 @@ codeunit 50150 "Amount In Word LT"
                 else
                     DecimalDesc := '';
 
+
                 IF (Exponent = 1) THEN
                     IF CurrencyCode <> ' ' THEN
                         AddToNoText(NoText, NoTextIndex, PrintExponent, DecimalDesc + ' ONLY')

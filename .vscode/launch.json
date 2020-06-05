@@ -3,7 +3,7 @@
     "configurations": [
         {
             "name": "Microsoft Cloud Sandbox",
-            "tenant": "871b7840-6960-4091-b561-71f1c4717459",
+           "tenant": "871b7840-6960-4091-b561-71f1c4717459",
             "type": "al",
             "request": "launch",
             "startupObjectId": 22,
@@ -14,7 +14,8 @@
             "enableLongRunningSqlStatements": true,
             "longRunningSqlStatementsThreshold": 500,
             "numberOfSqlStatements": 10,
-            "schemaUpdateMode": "ForceSync"
-        }
+            "schemaUpdateMode": "ForceSync",
+            "sandboxName": "LevtechDev"       
+         }
     ]
 }

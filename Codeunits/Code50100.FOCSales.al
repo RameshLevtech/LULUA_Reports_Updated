@@ -272,11 +272,12 @@ codeunit 50100 "FOC Sales Subscriber"
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Gen. Jnl.-Post Line", 'OnAfterInitVendLedgEntry', '', true, true)]
     local procedure OnAfterInitVendLedgEntry(var VendorLedgerEntry: Record "Vendor Ledger Entry"; GenJournalLine: Record "Gen. Journal Line")
     begin
-        Clear(VendorLedgerEntry);
         VendorLedgerEntry."Cash/Cheque Number" := GenJournalLine."Cash/Cheque Number";
         VendorLedgerEntry."Cheque Date" := GenJournalLine."Cheque Date";
         VendorLedgerEntry."Bank Name" := GenJournalLine."Bank Name";
         VendorLedgerEntry."Pay to the order of" := GenJournalLine."Pay to the order of";
+        VendorLedgerEntry."Bank Charges" := GenJournalLine."Bank Charges";
+        VendorLedgerEntry.Signatory := GenJournalLine.AdditionalSignatory;
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Gen. Jnl.-Post Line", 'OnAfterInitGLEntry', '', true, true)]
@@ -285,6 +286,33 @@ codeunit 50100 "FOC Sales Subscriber"
         GLEntry."Cash/Cheque Number" := GenJournalLine."Cash/Cheque Number";
         GLEntry."Cheque Date" := GenJournalLine."Cheque Date";
         GLEntry."Bank Name" := GenJournalLine."Bank Name";
+        GLEntry."Bank Charges" := Format(GenJournalLine."Bank Charges");
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Gen. Jnl.-Post Line", 'OnAfterInitBankAccLedgEntry', '', true, true)]
+    local procedure OnAfterInitBankAccLedgEntry(var BankAccountLedgerEntry: Record "Bank Account Ledger Entry"; GenJournalLine: Record "Gen. Journal Line")
+    begin
+        BankAccountLedgerEntry."Bank Charges" := GenJournalLine."Bank Charges";
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnBeforePostSalesLines', '', true, true)]
+    local procedure OnBeforePostSalesLines(var SalesHeader: Record "Sales Header"; var TempSalesLineGlobal: Record "Sales Line"; var TempVATAmountLine: Record "VAT Amount Line")
+    var
+        ItemL: Record Item;
+        SalesLineL: Record "Sales Line";
+    begin
+        //if (TempSalesLineGlobal."Document Type" = TempSalesLineGlobal."Document Type"::Invoice) AND (TempSalesLineGlobal."Parent Item" = '') then begin
+        if SalesHeader."Document Type" = SalesHeader."Document Type"::Order then begin
+            SalesLineL.SetRange("Document Type", SalesHeader."Document Type");
+            SalesLineL.SetRange("Document No.", SalesHeader."No.");
+            SalesLineL.SetRange(Type, TempSalesLineGlobal.Type::Item);
+            if SalesLineL.FindSet() then
+                repeat
+                    if ItemL.Get(SalesLineL."No.") AND ItemL."Check Parent Item" then
+                        if Not SalesLineL."Additional Parent Item" AND (SalesLineL."Parent Item" = '') then
+                            Error('Please Specify The Parent Item For %1', SalesLineL."No.");
+                until SalesLineL.Next() = 0;
+        end;
     end;
 
     var

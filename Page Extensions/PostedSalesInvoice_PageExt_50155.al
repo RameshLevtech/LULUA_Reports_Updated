@@ -40,34 +40,25 @@ pageextension 50155 "Posted sales invoice" extends "Posted Sales Invoice"
                     Image = SalesInvoice;
                     trigger OnAction()
                     VAR
-                        ReportSalesInvoice: Report "Sales Invoice Report";
                         RecSalesInvheader: Record "Sales Invoice Header";
                     begin
-                        Clear(RecSalesInvheader);
                         RecSalesInvheader.SetRange("No.", "No.");
-                        if RecSalesInvheader.FindSet() then begin
-                            ReportSalesInvoice.SetTableView(RecSalesInvheader);
-                            ReportSalesInvoice.Run();
-                        end;
+                        RecSalesInvheader.SetRange("Sell-to Customer No.", "Sell-to Customer No.");
+                        Report.Run(Report::"Sales Invoice Report", true, true, RecSalesInvheader);
                     end;
+
                 }
-
-
                 action("Sales Invoice with VAT")
                 {
                     ApplicationArea = All;
                     Image = CoupledSalesInvoice;
                     trigger OnAction()
                     VAR
-                        ReportSalesInvoice: Report "Sales Invoice With VAT";
                         RecSalesInvheader: Record "Sales Invoice Header";
                     begin
-                        Clear(RecSalesInvheader);
                         RecSalesInvheader.SetRange("No.", "No.");
-                        if RecSalesInvheader.FindSet() then begin
-                            ReportSalesInvoice.SetTableView(RecSalesInvheader);
-                            ReportSalesInvoice.Run();
-                        end;
+                        RecSalesInvheader.SetRange("Sell-to Customer No.", "Sell-to Customer No.");
+                        Report.Run(Report::"Sales Invoice With VAT", true, true, RecSalesInvheader);
                     end;
                 }
                 action("ALHI Pre Printed Stationary")

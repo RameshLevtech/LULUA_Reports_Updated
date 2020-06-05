@@ -10,6 +10,7 @@ tableextension 50151 SalesLineExt extends "Sales Line"
         field(50151; "Parent Item"; Code[20])
         {
             DataClassification = ToBeClassified;
+            Caption = 'Parent Item Number';
             TableRelation = Item."No.";
             trigger OnValidate()
             var
@@ -38,14 +39,67 @@ tableextension 50151 SalesLineExt extends "Sales Line"
                         Error('Selected Items Parent cant be used as a Parent of the same Item.');
                 end;
             end;
+
+            trigger OnLookup()
+            var
+                Sline: Record "Sales Line";
+                ItemNumsL: Code[250];
+                ItemL: Record Item;
+                ItemList: Page "Item List";
+                CopyItemL: Code[250];
+            begin
+                if "Additional Parent Item" then
+                    Error('No Need To Select The Parent Item');
+                Sline.SetRange("Document Type", Rec."Document Type");
+                Sline.SetRange("Document No.", Rec."Document No.");
+                Sline.SetRange(Type, Rec.Type::Item);
+                Sline.SetRange("Additional Parent Item", true);
+                if Sline.FindSet() then begin
+                    repeat
+                        ItemNumsL += Sline."No." + '|';
+                    until sline.Next() = 0;
+                    ItemNumsL := DelChr(ItemNumsL, '>', '|');
+                    ItemL.SetFilter("No.", ItemNumsL);
+                    //Page.Run(Page::"Item List", ItemL);
+                    ItemList.SetRecord(ItemL);
+                    ItemList.SetTableView(ItemL);
+                    ItemList.LookupMode(true);
+                    if ItemList.RunModal = Action::LookupOK then begin
+                        ItemList.GetRecord(ItemL);
+                        "Parent Item" := ItemL."No.";
+                    end;
+
+                end;
+            end;
         }
-//Ramesh
- field(50000; "FOC Sales"; Boolean)
+        field(50152; "Additional Parent Item"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+            Caption = 'Parent Item';
+            trigger OnValidate()
+            var
+                Sline: Record "Sales Line";
+                ItemNumsL: Code[250];
+                ItemL: Record Item;
+                ItemList: Page "Item List";
+            begin
+                if not "Additional Parent Item" then begin
+                    Sline.SetRange("Document Type", Rec."Document Type");
+                    Sline.SetRange("Document No.", Rec."Document No.");
+                    Sline.SetRange(Type, Rec.Type);
+                    Sline.SetRange("Parent Item", Rec."No.");
+                    if Sline.FindSet() then
+                        Error('You Cannot UnTick the Addtional Parent Item');
+                end;
+            end;
+        }
+        //Ramesh
+        field(50000; "FOC Sales"; Boolean)
         {
             DataClassification = ToBeClassified;
             Caption = 'FOC Sales';
         }
-//Ramesh
+        //Ramesh
     }
 
 

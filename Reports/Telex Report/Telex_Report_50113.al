@@ -9,9 +9,12 @@ report 50113 "Telex"
 
     dataset
     {
-        dataitem("Gen. Journal Line"; "G/L Entry")
+        dataitem("Vendor Ledger Entry"; "Vendor Ledger Entry")
         {
-            column(Posting_Date; "Posting Date")
+            column(Posting_Date; Format("Posting Date", 0, '<Day,2>-<Month Text,3>-<Year4>'))
+            {
+            }
+            column(CurrencyCodeG; CurrencyCodeG)
             {
             }
             column(Document_Date; "Document Date")
@@ -27,7 +30,13 @@ report 50113 "Telex"
             {
 
             }
+            column(RecDimValuesLogo; RecDimValuesLogo)
+            {
+            }
             column(CompanyLogo; RecDimValues.Logo)//CompanyInfo.Picture)
+            {
+            }
+            column(CompanyLogo1; CompanyInfo.Picture)
             {
             }
             column(CompanyPostcode; CompanyInfo."Post Code")
@@ -37,15 +46,15 @@ report 50113 "Telex"
             {
 
             }
-            column(CompanyCountry; CompanyInfo."Country/Region Code")
+            column(CompanyCountry; CountryG.Name)
             {
 
             }
-            column(CompanyPhone; 'T:' + CompanyInfo."Phone No.")
+            column(CompanyPhone; CompanyInfo."Phone No.")
             {
             }
 
-            column(CompanyEmail; 'E:' + CompanyInfo."E-Mail")
+            column(CompanyEmail; CompanyInfo."E-Mail")
             {
 
             }
@@ -59,7 +68,7 @@ report 50113 "Telex"
             {
 
             }
-            column(BeneficiaryAddress; Recvendor.Address + ' ' + Recvendor."Address 2" + ' ' + Recvendor.City + ' ' + Recvendor."Post Code" + ' ' + Recvendor."Country/Region Code")
+            column(BeneficiaryAddress; BeneficiaryAddress)
             {
 
             }
@@ -71,11 +80,11 @@ report 50113 "Telex"
             {
 
             }
-            column(RecipientBankAccAddress; RecRecipientBank.Address + ' ' + RecRecipientBank."Address 2" + ' ' + RecRecipientBank.City + ' ' + RecRecipientBank."Post Code" + ' ' + RecRecipientBank."Country/Region Code")
+            column(RecipientBankAccAddress; RecipientBankAccAddress)
             {
 
             }
-            column(BankAccountName; BankAccountG.Name + '' + BankAccountG."Bank Account No.")
+            column(BankAccountName; BankAccountG."Bank Account No.")
             {
             }
             column(Debit_Amount; "Debit Amount")
@@ -106,6 +115,10 @@ report 50113 "Telex"
             {
 
             }
+            column(SortCord; RecRecipientBank."Sort Cord")
+            {
+
+            }
             column(IBAN; RecRecipientBank.IBAN)
             {
 
@@ -114,15 +127,27 @@ report 50113 "Telex"
             {
 
             }
+            column(Bank_Charges; "Bank Charges")
+            {
+            }
+            column(Signatory; Signatory)
+            {
+            }
             trigger OnPreDataItem()
             begin
                 CompanyInfo.GET;
+                CompanyInfo.CalcFields(Picture);
+                if CountryG.Get(CompanyInfo."Country/Region Code") then;
             end;
 
             trigger OnAfterGetRecord()
             var
                 RecGenLedSetup: Record "General Ledger Setup";
             begin
+
+                if "Vendor Ledger Entry".Reversed = true then
+                    Error('You Cannot Print Telex Report It Has Been Reversed');
+
                 RecGenLedSetup.GET;
                 Clear(RecDimValues);
                 Clear(GlobalDimension1Desc);
@@ -130,6 +155,7 @@ report 50113 "Telex"
                 RecDimValues.SetRange(Code, "Global Dimension 1 Code");
                 if RecDimValues.FindFirst() then begin
                     RecDimValues.CalcFields(Logo);
+                    RecDimValuesLogo := RecDimValues.Logo.HasValue;
                     GlobalDimension1Desc := RecDimValues.Name;
                 end;
 
@@ -143,40 +169,89 @@ report 50113 "Telex"
                 end;
 
 
-                if "Gen. Journal Line"."Bal. Account Type" = "Gen. Journal Line"."Bal. Account Type"::Vendor then
-                    // if "Source Type" = "Source Type"::Vendor then begin
-                    // if Recvendor.GET("Source No.") then;
-                    if Recvendor.Get("Bal. Account No.") then;
-                RecVendorLedgerEntry.SetRange("Document No.", "Document No.");
-                RecVendorLedgerEntry.SetRange("Vendor No.", Recvendor."No.");
-                RecVendorLedgerEntry.SetFilter("Recipient Bank Account", '<>%1', '');
-                if RecVendorLedgerEntry.FindFirst() then begin
-                    Clear(RecRecipientBank);
-                    If RecRecipientBank.GET(Recvendor."No.", RecVendorLedgerEntry."Recipient Bank Account") then;
+
+                if Recvendor.GET("Vendor No.") then begin
+                    if CountryL.Get(Recvendor."Country/Region Code") then;
+
+                    BeneficiaryAddress := Recvendor.Address;
+                    if BeneficiaryAddress <> '' then
+                        BeneficiaryAddress += ' ' + Recvendor."Address 2"
+                    else
+                        BeneficiaryAddress := Recvendor."Address 2";
+                    if BeneficiaryAddress <> '' then
+                        BeneficiaryAddress += ' ' + Recvendor.City
+                    else
+                        BeneficiaryAddress := Recvendor.City;
+                    if BeneficiaryAddress <> '' then
+                        BeneficiaryAddress += ' ' + Recvendor."Post Code"
+                    else
+                        BeneficiaryAddress := Recvendor."Post Code";
+                    if BeneficiaryAddress <> '' then
+                        BeneficiaryAddress += ' ' + CountryL.Name
+                    else
+                        BeneficiaryAddress := CountryL.Name;
                 end;
+
+
+
+                Recvendor.SetRange("Preferred Bank Account Code", "Recipient Bank Account");
+                If RecRecipientBank.GET(Recvendor."No.", Recvendor."Preferred Bank Account Code") then begin
+                    If CountryL1.Get(RecRecipientBank."Country/Region Code") then;
+
+                    RecipientBankAccAddress := RecRecipientBank.Address;
+                    if RecipientBankAccAddress <> '' then
+                        RecipientBankAccAddress += ' ' + RecRecipientBank."Address 2"
+                    else
+                        RecipientBankAccAddress := RecRecipientBank."Address 2";
+
+                    if RecipientBankAccAddress <> '' then
+                        RecipientBankAccAddress += ' ' + RecRecipientBank."city"
+                    else
+                        RecipientBankAccAddress := RecRecipientBank."City";
+
+                    if RecipientBankAccAddress <> '' then
+                        RecipientBankAccAddress += ' ' + RecRecipientBank."Post Code"
+                    else
+                        RecipientBankAccAddress := RecRecipientBank."Post Code";
+
+                    if RecipientBankAccAddress <> '' then
+                        RecipientBankAccAddress += ' ' + CountryL1.Name
+                    else
+                        RecipientBankAccAddress := CountryL1.Name;
+                end;
+
+
+
                 Clear(BankAccountG);
-                if "Gen. Journal Line"."Bal. Account Type" = "Gen. Journal Line"."Bal. Account Type"::"Bank Account" then
-                    if BankAccountG.Get("Gen. Journal Line"."Bal. Account No.") then;
+                //if "Vendor Ledger Entry"."Bal. Account Type" = "Vendor Ledger Entry"."Bal. Account Type"::"Bank Account" then
+                BankAccountLegderEentry.SetRange("Document No.", "Vendor Ledger Entry"."Document No.");
+                BankAccountLegderEentry.SetRange("Transaction No.", "Vendor Ledger Entry"."Transaction No.");
+                if BankAccountLegderEentry.FindFirst() then
+                    if BankAccountG.Get(BankAccountLegderEentry."Bank Account No.") then;
 
 
-
-                tvar := (ROUND(Amount) MOD 1 * 100);
+                RecGenLedSetup.Get();
+                if "Vendor Ledger Entry"."Currency Code" = '' then
+                    CurrencyCodeG := RecGenLedSetup."LCY Code"
+                else
+                    CurrencyCodeG := "Vendor Ledger Entry"."Currency Code";
+                TotalAmt := Abs("Vendor Ledger Entry".Amount);
+                IntegerAmountG := (TotalAmt DIV 1);
+                DecimalAmountG := (ROUND(TotalAmt) MOD 1 * 100);
                 ConvertAmountInWord.InitTextVariable;
-                ConvertAmountInWord.FormatNoText(AmtInwrdArray1, tvar, BankAccountG."Currency Code");
-                AmountInWords := AmtInwrdArray1[1];
-                IF AmountInWords = '' THEN
-                    AmountInWords := 'ZERO';
-                ConvertAmountInWord.InitTextVariable;
-                ConvertAmountInWord.FormatNoText(AmtInwrdArray2, Amount, BankAccountG."Currency Code");
+                ConvertAmountInWord.FormatNoText(AmtInwrdArray2, TotalAmt, BankAccountG."Currency Code");
                 AmountInWords2 := AmtInwrdArray2[1];
-                //AmountText1 := Text + ' ' + CurrCode + ' AND ' + AmtInwrdArray2 + ' ' + DecimalDec + ' ONLY';
-                AmountText := BankAccountG."Currency Code" + ' ' + AmountInWords2;//+ ' AND ' + AmountInWords + ' ONLY';
+                AmountInWords2 := CopyStr(AmountInWords2, 1, StrPos(AmountInWords2, 'ONLY') - 2);
+                if CurrencyG.Get(CurrencyCodeG) then
+                    if (CurrencyG."Currency Fractional Value" > 0) AND (DecimalAmountG > 0) then
+                        AmountText := CurrencyCodeG + ' ' + AmountInWords2 + 'AND ' + Format(DecimalAmountG) + '/' + Format(CurrencyG."Currency Fractional Value") + ' ' + CurrencyG."Subsidary Currency" + '' + ' ONLY'
+                    else
+                        AmountText := CurrencyCodeG + ' ' + AmountInWords2 + '' + 'ONLY';
             end;
 
 
 
         }
-
     }
 
     requestpage
@@ -200,12 +275,23 @@ report 50113 "Telex"
     }
 
     var
+        BankAccountLegderEentry: Record "Bank Account Ledger Entry";
+        CountryG: Record "Country/Region";
+        CountryL: Record "Country/Region";
+        CountryL1: Record "Country/Region";
         RecDimValues: Record "Dimension Value";
+        DecimalAmountG: Decimal;
+        IntegerAmountG: Integer;
+        CurrencyG: Record Currency;
+        RecDimValuesLogo: Boolean;
         GlobalDimension1Desc: Text;
         GlobalDimension2Desc: Text;
-        RecGenJlnLine: Record "Gen. Journal Line";
+        RecipientBankAccAddress: Text;
+        BeneficiaryAddress: Text;
+        RecGenJlnLine: Record "Vendor Ledger Entry";
         VendorName: Text;
         RefLbl: Label 'Ref -';
+        CurrencyCodeG: Text;
         tvar: Decimal;
         ConvertAmountInWord: Codeunit 50150;
         AmountInWords: Text;
@@ -219,6 +305,7 @@ report 50113 "Telex"
         RecVendorLedgerEntry: Record "Vendor Ledger Entry";
         RecDimValues2: Record "Dimension Value";
         BankAccountG: Record "Bank Account";
+        TotalAmt: Decimal;
 
 
 }

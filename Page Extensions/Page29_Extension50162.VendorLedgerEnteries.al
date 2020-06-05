@@ -20,6 +20,14 @@ pageextension 50162 "Ext Vendor Ledger Enteries" extends "Vendor Ledger Entries"
             {
                 ApplicationArea = All;
             }
+            field("Bank Charges"; "Bank Charges")
+            {
+                ApplicationArea = All;
+            }
+            field(Signatory; Signatory)
+            {
+                ApplicationArea = All;
+            }
         }
     }
 
@@ -33,16 +41,10 @@ pageextension 50162 "Ext Vendor Ledger Enteries" extends "Vendor Ledger Entries"
                 Image = PrintExcise;
                 trigger OnAction()
                 Var
-                    PettycashReport: Report Telex;
-                    RecGLEntries: Record "G/L Entry";
+                    VendorLedgEntryL: Record "Vendor Ledger Entry";
                 begin
-                    Clear(RecGLEntries);
-                    RecGLEntries.SetRange("Document No.", Rec."Document No.");
-                    //RecGLEntries.SetRange("Posting Date", Rec."Posting Date");
-                    if RecGLEntries.FindSet() then begin
-                        PettycashReport.SetTableView(RecGLEntries);
-                        PettycashReport.Run();
-                    end;
+                    VendorLedgEntryL.SetRange("Document No.", "Document No.");
+                    Report.Run(Report::Telex, true, true, VendorLedgEntryL);
                 end;
             }
             action("Payment Voucher")
@@ -53,14 +55,18 @@ pageextension 50162 "Ext Vendor Ledger Enteries" extends "Vendor Ledger Entries"
                 VAR
                     RecGLEntries: Record "G/L Entry";
                     PaymentVoucherReport: Report "Payment Voucher Report";
+                    VendorLegderEntryL: Record "Vendor Ledger Entry";
                 begin
-                    Clear(RecGLEntries);
-                    RecGLEntries.SetRange("Document No.", Rec."Document No.");
-                    RecGLEntries.SetRange("Posting Date", Rec."Posting Date");
-                    if RecGLEntries.FindSet() then begin
-                        PaymentVoucherReport.SetTableView(RecGLEntries);
-                        PaymentVoucherReport.Run();
-                    end;
+                    // Clear(RecGLEntries);
+                    // RecGLEntries.SetRange("Document No.", Rec."Document No.");
+                    // RecGLEntries.SetRange("Posting Date", Rec."Posting Date");
+                    // if RecGLEntries.FindSet() then begin
+                    //     PaymentVoucherReport.SetTableView(RecGLEntries);
+                    //     PaymentVoucherReport.Run();
+                    // end;
+                    VendorLegderEntryL.SetRange("Document No.", "Document No.");
+                    VendorLegderEntryL.SetRange("Posting Date", "Posting Date");
+                    Report.Run(Report::"Payment Voucher Report", true, true, VendorLegderEntryL);
                 end;
             }
         }

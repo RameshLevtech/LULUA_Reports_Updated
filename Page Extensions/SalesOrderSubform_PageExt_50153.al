@@ -3,8 +3,9 @@ pageextension 50153 "SoSubform" extends "Sales Order Subform"
     layout
     {
         // Add changes to page layout here
-        addafter("No.")
+        addbefore(Type)
         {
+
             field("Cross-Reference No"; "Cross-Reference No.")
             {
                 ApplicationArea = All;
@@ -13,32 +14,43 @@ pageextension 50153 "SoSubform" extends "Sales Order Subform"
             {
                 ApplicationArea = All;
                 Enabled = ParentItemEnable;
-                trigger OnLookup(Var Text: Text): Boolean
-                var
-                    PageSline: Page "Sales Lines";
-                    RecSline: Record "Sales Line";
-                begin
-                    Clear(RecSline);
-                    RecSline.SetRange("Document Type", "Document Type");
-                    RecSline.SetRange("Document No.", "Document No.");
-                    RecSline.SetRange(Type, Type::Item);
-                    RecSline.SetFilter("No.", '<>%1', "No.");
-                    if RecSline.FindSet() then begin
-                        PageSline.SetTableView(RecSline);
-                        PageSline.LOOKUPMODE := TRUE;
-                        PageSline.Editable(false);
-                        IF PageSline.RUNMODAL = ACTION::LookupOK THEN begin
-                            PageSline.GetRecord(RecSline);
-                            "Parent Item" := RecSline."No.";
-                        end;
-                    end;
-                end;
+                // trigger OnLookup(Var Text: Text): Boolean
+                // var
+                //     PageSline: Page "Sales Lines";
+                //     RecSline: Record "Sales Line";
+                // begin
+                //     Clear(RecSline);
+                //     RecSline.SetRange("Document Type", "Document Type");
+                //     RecSline.SetRange("Document No.", "Document No.");
+                //     RecSline.SetRange(Type, Type::Item);
+                //     RecSline.SetFilter("No.", '<>%1', "No.");
+                //     if RecSline.FindSet() then begin
+                //         PageSline.SetTableView(RecSline);
+                //         PageSline.LOOKUPMODE := TRUE;
+                //         PageSline.Editable(false);
+                //         IF PageSline.RUNMODAL = ACTION::LookupOK THEN begin
+                //             PageSline.GetRecord(RecSline);
+                //             "Parent Item" := RecSline."No.";
+                //         end;
+                //     end;
+                // end;
+            }
+            field("Additional Parent Item"; "Additional Parent Item")
+            {
+                ApplicationArea = All;
             }
         }
         //Ramesh
         addafter("Unit Price")
         {
             field("FOC Sales"; "FOC Sales")
+            {
+                ApplicationArea = All;
+            }
+        }
+        addafter(Description)
+        {
+            field("Description 2"; "Description 2")
             {
                 ApplicationArea = All;
             }

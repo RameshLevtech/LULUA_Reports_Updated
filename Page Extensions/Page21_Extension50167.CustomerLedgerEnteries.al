@@ -2,7 +2,24 @@ pageextension 50167 "Ext Customer Ledger Enteries" extends "Customer Ledger Entr
 {
     layout
     {
-        // Add changes to page layout here
+        addafter("Posting Date")
+        {
+            field("Cash/Cheque Number"; "Cash/Cheque Number")
+            {
+                ApplicationArea = All;
+                Editable = false;
+            }
+            field("Cheque Date"; "Cheque Date")
+            {
+                ApplicationArea = All;
+                Editable = false;
+            }
+            field("Bank Name"; "Bank Name")
+            {
+                ApplicationArea = All;
+                Editable = false;
+            }
+        }
     }
 
     actions
@@ -15,17 +32,17 @@ pageextension 50167 "Ext Customer Ledger Enteries" extends "Customer Ledger Entr
                 Image = ReceiptVoucher;
                 trigger OnAction()
                 VAR
-                    RecGLEntries: Record "G/L Entry";
+                    RecCustLedgL: Record "Cust. Ledger Entry";
                     ReceiptVoucherReport: Report "Receipt Voucher";
                 begin
-                    Clear(RecGLEntries);
-                    RecGLEntries.SetRange("Document No.", Rec."Document No.");
-                    RecGLEntries.SetRange("Posting Date", Rec."Posting Date");
-                    if RecGLEntries.FindSet() then begin
-                        ReceiptVoucherReport.SetTableView(RecGLEntries);
-                        ReceiptVoucherReport.Run();
+                    if "Document Type" IN ["Document Type"::" ", "Document Type"::Payment, "Document Type"::Refund] then begin
+                        RecCustLedgL.SetRange("Document No.", "Document No.");
+                        RecCustLedgL.SetRange("Customer No.", "Customer No.");
+                        RecCustLedgL.SetRange("Posting Date", "Posting Date");
+                        Report.Run(Report::"Receipt Voucher", true, true, RecCustLedgL);
                     end;
                 end;
+
             }
         }
     }

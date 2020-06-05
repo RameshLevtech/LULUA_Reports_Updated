@@ -33,4 +33,12 @@ codeunit 50101 "Check Report Lulua"
         GLEntry."Cheque Date" := GenJournalLine."Cheque Date";
         GLEntry."Bank Name" := GenJournalLine."Bank Name";
     end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Gen. Jnl.-Post Line", 'OnAfterInitCustLedgEntry', '', true, true)]
+    local procedure OnAfterInitCustLedgEntry(var CustLedgerEntry: Record "Cust. Ledger Entry"; GenJournalLine: Record "Gen. Journal Line")
+    begin
+        CustLedgerEntry."Cash/Cheque Number" := GenJournalLine."Cash/Cheque Number";
+        CustLedgerEntry."Cheque Date" := GenJournalLine."Cheque Date";
+        CustLedgerEntry."Bank Name" := GenJournalLine."Bank Name";
+    end;
 }
