@@ -170,7 +170,7 @@ report 50115 "Payment Voucher Report"
                     AmountText := CurrencyCodeTextG + ' ' + AmountInWords2 + 'ONLY';
 
                 if "Vendor Ledger Entry"."Cash/Cheque Number" <> '' then
-                    ChequeDateNo := "Vendor Ledger Entry"."Cash/Cheque Number" + ' ' + Format("Cheque Date", 0, '<Day,2>-<Month Text,3>-<Year4>');
+                    ChequeDateNo := "Vendor Ledger Entry"."Cash/Cheque Number";// + ' ' + Format("Cheque Date", 0, '<Day,2>-<Month Text,3>-<Year4>');
 
                 if ReasonCodeG.Get("Reason Code") then;
 

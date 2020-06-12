@@ -13,7 +13,7 @@ table 50000 "Signatory"
             AutoIncrement = true;
 
         }
-        field(2; "Name"; Text[50])
+        field(2; "Name"; Text[250])
         {
             DataClassification = ToBeClassified;
             Caption = 'Name';

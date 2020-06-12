@@ -1,237 +1,341 @@
-page 50012 "Posted Return Receipt Line"
+page 50012 "Posted Return Receipt Line "
 {
-    AutoSplitKey = true;
-    Caption = 'Posted Return Receipt Line';
-    Editable = false;
-    LinksAllowed = false;
+
     ApplicationArea = All;
+    Caption = 'Posted Return Receipt Line ';
     PageType = List;
     SourceTable = "Return Receipt Line";
     UsageCategory = Lists;
+    Editable = false;
 
     layout
     {
         area(content)
         {
-            repeater(Control1)
+            repeater(General)
             {
-                ShowCaption = false;
+                field("Sell-to Customer No."; "Sell-to Customer No.")
+                {
+                    ApplicationArea = All;
+                }
+                field("Document No."; "Document No.")
+                {
+                    ApplicationArea = All;
+                }
+                field("Line No."; "Line No.")
+                {
+                    ApplicationArea = All;
+                }
                 field(Type; Type)
                 {
-                    ApplicationArea = SalesReturnOrder;
-                    ToolTip = 'Specifies the line type.';
+                    ApplicationArea = All;
                 }
                 field("No."; "No.")
                 {
-                    ApplicationArea = SalesReturnOrder;
-                    ToolTip = 'Specifies the number of the involved entry or record, according to the specified number series.';
-                }
-                field("Cross-Reference No."; "Cross-Reference No.")
-                {
-                    ApplicationArea = SalesReturnOrder;
-                    ToolTip = 'Specifies the cross-referenced item number. If you enter a cross reference between yours and your vendor''s or customer''s item number, then this number will override the standard item number when you enter the cross-reference number on a sales or purchase document.';
-                    Visible = false;
-                }
-                field("Variant Code"; "Variant Code")
-                {
-                    ApplicationArea = Planning;
-                    ToolTip = 'Specifies the variant of the item on the line.';
-                    Visible = false;
-                }
-                field(Description; Description)
-                {
-                    ApplicationArea = SalesReturnOrder;
-                    ToolTip = 'Specifies a description of the return receipt posted';
-                }
-                field("Return Reason Code"; "Return Reason Code")
-                {
-                    ApplicationArea = SalesReturnOrder;
-                    ToolTip = 'Specifies the code explaining why the item was returned.';
+                    ApplicationArea = All;
                 }
                 field("Location Code"; "Location Code")
                 {
-                    ApplicationArea = SalesReturnOrder;
-                    ToolTip = 'Specifies a code for the location where you want the items to be placed when they are received.';
+                    ApplicationArea = All;
                 }
-                field("Bin Code"; "Bin Code")
+                field("Posting Group"; "Posting Group")
                 {
-                    ApplicationArea = SalesReturnOrder;
-                    ToolTip = 'Specifies the bin where the items are picked or put away.';
-                    Visible = false;
-                }
-                field(Quantity; Quantity)
-                {
-                    ApplicationArea = SalesReturnOrder;
-                    BlankZero = true;
-                    ToolTip = 'Specifies the number of units of the item, general ledger account, or item charge on the line.';
-                }
-                field("Unit of Measure Code"; "Unit of Measure Code")
-                {
-                    ApplicationArea = SalesReturnOrder;
-                    ToolTip = 'Specifies how each unit of the item or resource is measured, such as in pieces or hours. By default, the value in the Base Unit of Measure field on the item or resource card is inserted.';
-                }
-                field("Unit of Measure"; "Unit of Measure")
-                {
-                    ApplicationArea = SalesReturnOrder;
-                    ToolTip = 'Specifies the name of the item or resource''s unit of measure, such as piece or hour.';
-                    Visible = false;
-                }
-                field("Quantity Invoiced"; "Quantity Invoiced")
-                {
-                    ApplicationArea = SalesReturnOrder;
-                    BlankZero = true;
-                    ToolTip = 'Specifies how many units of the item on the line have been posted as invoiced.';
-                }
-                field("Return Qty. Rcd. Not Invd."; "Return Qty. Rcd. Not Invd.")
-                {
-                    ApplicationArea = SalesReturnOrder;
-                    ToolTip = 'Specifies the quantity from the line that has been posted as received but that has not yet been posted as invoiced.';
+                    ApplicationArea = All;
                 }
                 field("Shipment Date"; "Shipment Date")
                 {
-                    ApplicationArea = SalesReturnOrder;
-                    ToolTip = 'Specifies when items on the document are shipped or were shipped. A shipment date is usually calculated from a requested delivery date plus lead time.';
+                    ApplicationArea = All;
                 }
-                field("Job No."; "Job No.")
+                field(Description; Description)
                 {
-                    ApplicationArea = SalesReturnOrder;
-                    ToolTip = 'Specifies the number of the related job.';
-                    Visible = false;
+                    ApplicationArea = All;
+                }
+                field("Description 2"; "Description 2")
+                {
+                    ApplicationArea = All;
+                }
+                field("Unit of Measure"; "Unit of Measure")
+                {
+                    ApplicationArea = All;
+                }
+                field(Quantity; Quantity)
+                {
+                    ApplicationArea = All;
+                }
+                field("Unit Price"; "Unit Price")
+                {
+                    ApplicationArea = All;
+                }
+                field("Unit Cost (LCY)"; "Unit Cost (LCY)")
+                {
+                    ApplicationArea = All;
+                }
+                field("VAT %"; "VAT %")
+                {
+                    ApplicationArea = All;
+                }
+                field("Line Discount %"; "Line Discount %")
+                {
+                    ApplicationArea = All;
+                }
+                field("Allow Invoice Disc."; "Allow Invoice Disc.")
+                {
+                    ApplicationArea = All;
+                }
+                field("Gross Weight"; "Gross Weight")
+                {
+                    ApplicationArea = All;
+                }
+                field("Net Weight"; "Net Weight")
+                {
+                    ApplicationArea = All;
+                }
+                field("Units per Parcel"; "Units per Parcel")
+                {
+                    ApplicationArea = All;
+                }
+                field("Unit Volume"; "Unit Volume")
+                {
+                    ApplicationArea = All;
                 }
                 field("Appl.-to Item Entry"; "Appl.-to Item Entry")
                 {
-                    ApplicationArea = SalesReturnOrder;
-                    ToolTip = 'Specifies the number of the item ledger entry that the document or journal line is applied to.';
-                    Visible = false;
+                    ApplicationArea = All;
+                }
+                field("Item Rcpt. Entry No."; "Item Rcpt. Entry No.")
+                {
+                    ApplicationArea = All;
                 }
                 field("Shortcut Dimension 1 Code"; "Shortcut Dimension 1 Code")
                 {
-                    ApplicationArea = Dimensions;
-                    ToolTip = 'Specifies the code for Shortcut Dimension 1, which is one of two global dimension codes that you set up in the General Ledger Setup window.';
-                    Visible = false;
+                    ApplicationArea = All;
                 }
                 field("Shortcut Dimension 2 Code"; "Shortcut Dimension 2 Code")
                 {
-                    ApplicationArea = Dimensions;
-                    ToolTip = 'Specifies the code for Shortcut Dimension 2, which is one of two global dimension codes that you set up in the General Ledger Setup window.';
-                    Visible = false;
+                    ApplicationArea = All;
+                }
+                field("Customer Price Group"; "Customer Price Group")
+                {
+                    ApplicationArea = All;
+                }
+                field("Job No."; "Job No.")
+                {
+                    ApplicationArea = All;
+                }
+                field("Work Type Code"; "Work Type Code")
+                {
+                    ApplicationArea = All;
+                }
+                field("Quantity Invoiced"; "Quantity Invoiced")
+                {
+                    ApplicationArea = All;
+                }
+                field("Bill-to Customer No."; "Bill-to Customer No.")
+                {
+                    ApplicationArea = All;
+                }
+                field("Gen. Bus. Posting Group"; "Gen. Bus. Posting Group")
+                {
+                    ApplicationArea = All;
+                }
+                field("Gen. Prod. Posting Group"; "Gen. Prod. Posting Group")
+                {
+                    ApplicationArea = All;
+                }
+                field("VAT Calculation Type"; "VAT Calculation Type")
+                {
+                    ApplicationArea = All;
+                }
+                field("Transaction Type"; "Transaction Type")
+                {
+                    ApplicationArea = All;
+                }
+                field("Transport Method"; "Transport Method")
+                {
+                    ApplicationArea = All;
+                }
+                field("Attached to Line No."; "Attached to Line No.")
+                {
+                    ApplicationArea = All;
+                }
+                field("Exit Point"; "Exit Point")
+                {
+                    ApplicationArea = All;
+                }
+                //         field(Area; Area)
+                // {
+                //                         ApplicationArea = All;
+                // }
+                field("Transaction Specification"; "Transaction Specification")
+                {
+                    ApplicationArea = All;
+                }
+                field("Tax Area Code"; "Tax Area Code")
+                {
+                    ApplicationArea = All;
+                }
+                field("Tax Liable"; "Tax Liable")
+                {
+                    ApplicationArea = All;
+                }
+                field("Tax Group Code"; "Tax Group Code")
+                {
+                    ApplicationArea = All;
+                }
+                field("VAT Bus. Posting Group"; "VAT Bus. Posting Group")
+                {
+                    ApplicationArea = All;
+                }
+                field("VAT Prod. Posting Group"; "VAT Prod. Posting Group")
+                {
+                    ApplicationArea = All;
+                }
+                field("Currency Code"; "Currency Code")
+                {
+                    ApplicationArea = All;
+                }
+                field("Blanket Order No."; "Blanket Order No.")
+                {
+                    ApplicationArea = All;
+                }
+                field("Blanket Order Line No."; "Blanket Order Line No.")
+                {
+                    ApplicationArea = All;
+                }
+                field("VAT Base Amount"; "VAT Base Amount")
+                {
+                    ApplicationArea = All;
+                }
+                field("Unit Cost"; "Unit Cost")
+                {
+                    ApplicationArea = All;
+                }
+                field("Posting Date"; "Posting Date")
+                {
+                    ApplicationArea = All;
+                }
+                field("Dimension Set ID"; "Dimension Set ID")
+                {
+                    ApplicationArea = All;
+                }
+                field("Variant Code"; "Variant Code")
+                {
+                    ApplicationArea = All;
+                }
+                field("Bin Code"; "Bin Code")
+                {
+                    ApplicationArea = All;
+                }
+                field("Qty. per Unit of Measure"; "Qty. per Unit of Measure")
+                {
+                    ApplicationArea = All;
+                }
+                field("Unit of Measure Code"; "Unit of Measure Code")
+                {
+                    ApplicationArea = All;
+                }
+                field("Quantity (Base)"; "Quantity (Base)")
+                {
+                    ApplicationArea = All;
+                }
+                field("Qty. Invoiced (Base)"; "Qty. Invoiced (Base)")
+                {
+                    ApplicationArea = All;
+                }
+                field("FA Posting Date"; "FA Posting Date")
+                {
+                    ApplicationArea = All;
+                }
+                field("Depreciation Book Code"; "Depreciation Book Code")
+                {
+                    ApplicationArea = All;
+                }
+                field("Depr. until FA Posting Date"; "Depr. until FA Posting Date")
+                {
+                    ApplicationArea = All;
+                }
+                field("Duplicate in Depreciation Book"; "Duplicate in Depreciation Book")
+                {
+                    ApplicationArea = All;
+                }
+                field("Use Duplication List"; "Use Duplication List")
+                {
+                    ApplicationArea = All;
+                }
+                field("Responsibility Center"; "Responsibility Center")
+                {
+                    ApplicationArea = All;
+                }
+                field("Cross-Reference No."; "Cross-Reference No.")
+                {
+                    ApplicationArea = All;
+                }
+                field("Unit of Measure (Cross Ref.)"; "Unit of Measure (Cross Ref.)")
+                {
+                    ApplicationArea = All;
+                }
+                field("Cross-Reference Type"; "Cross-Reference Type")
+                {
+                    ApplicationArea = All;
+                }
+                field("Cross-Reference Type No."; "Cross-Reference Type No.")
+                {
+                    ApplicationArea = All;
+                }
+                field("Item Category Code"; "Item Category Code")
+                {
+                    ApplicationArea = All;
+                }
+                field(Nonstock; Nonstock)
+                {
+                    ApplicationArea = All;
+                }
+                field("Purchasing Code"; "Purchasing Code")
+                {
+                    ApplicationArea = All;
+                }
+                // field("Product Group Code"; "Product Group Code")
+                // {
+                //     ApplicationArea = All;
+                // }
+                field("Return Qty. Rcd. Not Invd."; "Return Qty. Rcd. Not Invd.")
+                {
+                    ApplicationArea = All;
+                }
+                field("Appl.-from Item Entry"; "Appl.-from Item Entry")
+                {
+                    ApplicationArea = All;
+                }
+                field("Item Charge Base Amount"; "Item Charge Base Amount")
+                {
+                    ApplicationArea = All;
+                }
+                field(Correction; Correction)
+                {
+                    ApplicationArea = All;
+                }
+                field("Return Order No."; "Return Order No.")
+                {
+                    ApplicationArea = All;
+                }
+                field("Return Order Line No."; "Return Order Line No.")
+                {
+                    ApplicationArea = All;
+                }
+                field("Return Reason Code"; "Return Reason Code")
+                {
+                    ApplicationArea = All;
+                }
+                field("Allow Line Disc."; "Allow Line Disc.")
+                {
+                    ApplicationArea = All;
+                }
+                field("Customer Disc. Group"; "Customer Disc. Group")
+                {
+                    ApplicationArea = All;
                 }
             }
         }
     }
 
-    actions
-    {
-        area(processing)
-        {
-            group("F&unctions")
-            {
-                Caption = 'F&unctions';
-                Image = "Action";
-                action("&Undo Return Receipt")
-                {
-                    ApplicationArea = SalesReturnOrder;
-                    Caption = '&Undo Return Receipt';
-                    Image = Undo;
-                    ToolTip = 'Undo the quantity posting made with the return receipt. A corrective line is inserted in the posted document and the Returned Qty. Received and Return Qty. Rcd. Not Invd. fields on the return order are set to zero.';
-
-                    trigger OnAction()
-                    begin
-                        UndoReturnReceipt;
-                    end;
-                }
-            }
-            group("&Line")
-            {
-                Caption = '&Line';
-                Image = Line;
-                action(Dimensions)
-                {
-                    AccessByPermission = TableData Dimension = R;
-                    ApplicationArea = Dimensions;
-                    Caption = 'Dimensions';
-                    Image = Dimensions;
-                    ShortCutKey = 'Alt+D';
-                    ToolTip = 'View or edit dimensions, such as area, project, or department, that you can assign to sales and purchase documents to distribute costs and analyze transaction history.';
-
-                    trigger OnAction()
-                    begin
-                        ShowDimensions;
-                    end;
-                }
-                action(Comments)
-                {
-                    ApplicationArea = SalesReturnOrder;
-                    Caption = 'Co&mments';
-                    Image = ViewComments;
-                    ToolTip = 'View or add comments for the record.';
-
-                    trigger OnAction()
-                    begin
-                        ShowLineComments;
-                    end;
-                }
-                action(DocumentLineTracking)
-                {
-                    ApplicationArea = Basic, Suite;
-                    Caption = 'Document &Line Tracking';
-                    Image = Navigate;
-                    ToolTip = 'View related open, posted, or archived documents or document lines.';
-
-                    trigger OnAction()
-                    begin
-                        ShowDocumentLineTracking;
-                    end;
-                }
-                action(ItemTrackingEntries)
-                {
-                    ApplicationArea = ItemTracking;
-                    Caption = 'Item &Tracking Entries';
-                    Image = ItemTrackingLedger;
-                    ToolTip = 'View serial or lot numbers that are assigned to items.';
-
-                    trigger OnAction()
-                    begin
-                        ShowItemTrackingLines;
-                    end;
-                }
-                action(ItemCreditMemoLines)
-                {
-                    ApplicationArea = SalesReturnOrder;
-                    Caption = 'Item Credit Memo &Lines';
-                    Image = CreditMemo;
-                    ToolTip = 'View the related credit memo lines.';
-
-                    trigger OnAction()
-                    begin
-                        PageShowItemSalesCrMemoLines;
-                    end;
-                }
-            }
-        }
-    }
-
-    local procedure UndoReturnReceipt()
-    var
-        ReturnRcptLine: Record "Return Receipt Line";
-    begin
-        ReturnRcptLine.Copy(Rec);
-        CurrPage.SetSelectionFilter(ReturnRcptLine);
-        CODEUNIT.Run(CODEUNIT::"Undo Return Receipt Line", ReturnRcptLine);
-    end;
-
-    local procedure PageShowItemSalesCrMemoLines()
-    begin
-        TestField(Type, Type::Item);
-        ShowItemSalesCrMemoLines;
-    end;
-
-    procedure ShowDocumentLineTracking()
-    var
-        DocumentLineTracking: Page "Document Line Tracking";
-    begin
-        Clear(DocumentLineTracking);
-        DocumentLineTracking.SetDoc(12, "Document No.", "Line No.", "Return Order No.", "Return Order Line No.", '', 0);
-        DocumentLineTracking.RunModal;
-    end;
 }
